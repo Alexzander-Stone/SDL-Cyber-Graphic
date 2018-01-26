@@ -43,7 +43,7 @@ int main(void) {
   // Create the front layer for drawing. Then draw the front layer.
   FrontLayer frontLayer(renderer);
   frontLayer.draw();
-  
+
   // Draw the circle on the window/canvas.
   SDL_Point circleCenter = {320, 240};
   SDL_Color circleColor = {255,0,0,255};
@@ -69,6 +69,8 @@ int main(void) {
       }
     }
   }
+
+  // Free memory used by renderer and window.
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();

@@ -1,17 +1,17 @@
 #include <iostream>
+#include <math.h>
 #include "backLayer.h"
 
 const int WIDTH = 1280;
 const int HEIGHT = 720;
 
-// Constructors, use const later.
+// Constructors/Destructors, use const later.
 // Can use inheritance to make some of the portions of layers easier.
 BackLayer::BackLayer(SDL_Renderer* totalRenderer) 
     : renderer(totalRenderer)
 {
     std::cout << "Back layer created (passed renderer)" << std::endl;
 }
-
 
 void BackLayer::draw()
 {
@@ -51,7 +51,14 @@ void BackLayer::createSun()
     int circleRadius = 200;
     SDL_Point circleCenter = {circleRadius, circleRadius};
     SDL_Color circleColor = {255, 255, 0, 255/2};
-    createCircle(circleCenter, circleRadius, circleColor);    
+    createCircle(circleCenter, circleRadius, circleColor);
+
+    // Draw a lines around the sun.
+    SDL_SetRenderDrawColor(renderer, 220, 20, 60, 255);
+    SDL_RenderDrawLine(renderer, 0, circleRadius, circleRadius*2, circleRadius);
+
+    // Curved lines.
+    createCurvedLine(1, 40);
 }
 
 void BackLayer::createCircle(SDL_Point center, int radius, SDL_Color color)
@@ -68,5 +75,20 @@ void BackLayer::createCircle(SDL_Point center, int radius, SDL_Color color)
                 SDL_RenderDrawPoint(renderer, center.x + dx, center.y + dy);
             }
         }
+    }
+}
+
+// Possible offset of curve later.
+void BackLayer::createCurvedLine(int curvesToRepeat, int lengthOfCurve)
+{
+    int startingX = 50, startingY = 500;
+    
+    for(int i = 0; i < curvesToRepeat; i++)
+    {
+        for(int theta = 0; theta < 360; theta++)
+        {
+            SDL_RenderDrawPoint(renderer, startingX + theta, startingY + sin(theta)*50); 
+        }
+        startingX += 360;
     }
 }
