@@ -58,7 +58,7 @@ void BackLayer::createSun()
     SDL_RenderDrawLine(renderer, 0, circleRadius, circleRadius*2, circleRadius);
 
     // Curved lines.
-    createCurvedLine(1, 40);
+    createCurvedLine(2, 50);
 }
 
 void BackLayer::createCircle(SDL_Point center, int radius, SDL_Color color)
@@ -79,16 +79,18 @@ void BackLayer::createCircle(SDL_Point center, int radius, SDL_Color color)
 }
 
 // Possible offset of curve later.
+// tan, sin, cos possible
 void BackLayer::createCurvedLine(int curvesToRepeat, int lengthOfCurve)
 {
     int startingX = 50, startingY = 500;
     
     for(int i = 0; i < curvesToRepeat; i++)
     {
-        for(int theta = 0; theta < 360; theta++)
+        for(float theta = 0; theta < 2*3.14159265; theta+=.001)
         {
-            SDL_RenderDrawPoint(renderer, startingX + theta, startingY + sin(theta)*50); 
+            SDL_RenderDrawPoint(renderer, startingX + theta*lengthOfCurve, 
+                   startingY + (cos(theta)*lengthOfCurve)); 
         }
-        startingX += 360;
+        startingX += 2*3.14159265*lengthOfCurve;
     }
 }
