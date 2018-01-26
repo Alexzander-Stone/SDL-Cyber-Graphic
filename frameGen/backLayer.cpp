@@ -4,7 +4,8 @@
 const int WIDTH = 1280;
 const int HEIGHT = 720;
 
-// Constructors
+// Constructors, use const later.
+// Can use inheritance to make some of the portions of layers easier.
 BackLayer::BackLayer(SDL_Renderer* totalRenderer) 
     : renderer(totalRenderer)
 {
@@ -38,4 +39,34 @@ void BackLayer::draw()
     SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255/4 ); 
     SDL_RenderDrawRect(renderer, &rectangle);
 
+    // Create a sun on the window.
+    createSun();
+}
+
+
+void BackLayer::createSun()
+{
+    // Create a circle given center coordinates (top left corner) 
+    // and a color. Then draw.
+    int circleRadius = 200;
+    SDL_Point circleCenter = {circleRadius, circleRadius};
+    SDL_Color circleColor = {255, 255, 0, 255/2};
+    createCircle(circleCenter, circleRadius, circleColor);    
+}
+
+void BackLayer::createCircle(SDL_Point center, int radius, SDL_Color color)
+{
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    for(int w = 0; w < radius * 2; w++)
+    {
+        for(int h = 0; h < radius * 2; h++)
+        {
+            int dx = radius - w;
+            int dy = radius - h;
+            if((dx*dx + dy*dy) <= (radius * radius))
+            {
+                SDL_RenderDrawPoint(renderer, center.x + dx, center.y + dy);
+            }
+        }
+    }
 }
