@@ -30,18 +30,25 @@ void BackLayer::draw()
               << rectangle.y+rectangle.h/2 << std::endl;
 
     // Turn on alpha blending?
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255/4 );
+    //SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 122 );
 
     // Fill the rectangle with color.
     SDL_RenderFillRect( renderer, &rectangle );
 
     // Set the color of the rectangle then draw the rectangle to the renderer.
-    SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255/4 ); 
+    SDL_SetRenderDrawColor( renderer, 0, 0, 255, 122 ); 
     SDL_RenderDrawRect(renderer, &rectangle);
 
     // Create a sun on the window.
     createSun();
+
+    // Create a console in the center of the canvas.
+    int consoleWidth = 300;
+    int consoleHeight = 500;
+    createConsole(consoleWidth, consoleHeight, WIDTH/2 - (consoleWidth / 2), 
+                  HEIGHT/2 - (consoleHeight / 2));
+
 }
 
 
@@ -51,7 +58,7 @@ void BackLayer::createSun()
     // and a color. Then draw.
     int circleRadius = 200;
     SDL_Point circleCenter = {circleRadius, circleRadius};
-    SDL_Color circleColor = {255, 255, 0, 255/2};
+    SDL_Color circleColor = {255, 255, 0, 122};
     createCircle(circleCenter, circleRadius, circleColor);
 
     // Draw a lines around the sun.
@@ -185,6 +192,54 @@ void BackLayer::createTanLine(int curvesToRepeat, int lengthOfCurve,
         startingX += ((2*PI*lengthOfCurve) * cos(distortionAngle));
         startingY += ((2*PI*lengthOfCurve) * sin(distortionAngle));
     }
+}
+
+void BackLayer::createConsole(int width, int height, int positionX, int positionY)
+{
+    // Create the rectangles postition and size.
+    // Use the width and size of both the screen and the rectangle to draw to
+    // the middle of the screen.
+    SDL_Rect console;
+    console.w = width;
+    console.h = height;
+    console.x = positionX;
+    console.y = positionY;
+
+    // Set the color of the rectangle border then draw to canvas. Then set the
+    // color of the fill of the rectangle and draw to canvas.
+    SDL_SetRenderDrawColor( renderer, 50, 50, 50, 122 ); 
+    SDL_RenderDrawRect(renderer, &console);
+    SDL_SetRenderDrawColor( renderer, 100, 50, 100, 122 );
+    SDL_RenderFillRect( renderer, &console );    
+    
+
+    // Set the color of the rectangle border then draw to canvas. Then set the
+    // color of the fill of the rectangle and draw to canvas. 
+    SDL_Rect terminal;
+    int terminalDownsize = 6;
+    terminal.w = width / terminalDownsize;
+    terminal.h = height * ((float)width / height) / terminalDownsize;
+    
+    // Fill the rectangle with color.
+    // Set the color of the rectangle then draw the rectangle to the renderer.
+    SDL_SetRenderDrawColor( renderer, 50, 50, 50, 122 );
+    
+    // Create four terminals by reusing the terminal values while chaning the x
+    // and y.
+    for(int i = 0; i < 2; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            terminal.x = console.x + (height/8 * i);
+            terminal.y = console.y + (height/8 * j);
+         
+            SDL_RenderDrawRect(renderer, &terminal); 
+            SDL_RenderFillRect(renderer, &terminal);
+        }
+    }
+    
+
+    
 }
 
 // Create golden ratio function.

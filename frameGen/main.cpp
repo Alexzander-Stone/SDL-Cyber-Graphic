@@ -40,9 +40,11 @@ int main(void) {
   BackLayer backLayer(renderer);
   backLayer.draw();
 
+/*
   // Create the front layer for drawing. Then draw the front layer.
   FrontLayer frontLayer(renderer);
   frontLayer.draw();
+*/
 
   // Draw the circle on the window/canvas.
   SDL_Point circleCenter = {320, 240};

@@ -15,4 +15,7 @@ private:
     void createCosLine(int, int, int, int);
     void createSinLine(int, int, int, int);
     void createTanLine(int, int, int, int);
+
+    // Console
+    void createConsole(int, int, int, int);
 };
