@@ -4,6 +4,7 @@
 
 const int WIDTH = 1280;
 const int HEIGHT = 720;
+const float PI = 3.14159265;
 
 // Constructors/Destructors, use const later.
 // Can use inheritance to make some of the portions of layers easier.
@@ -58,7 +59,9 @@ void BackLayer::createSun()
     SDL_RenderDrawLine(renderer, 0, circleRadius, circleRadius*2, circleRadius);
 
     // Curved lines.
-    createCurvedLine(2, 50);
+    createCosLine(3, 10, 500, 500);
+    //createSinLine(2, 50, 10, 200);
+    //createTanLine(4, 20, 200, 30);
 }
 
 void BackLayer::createCircle(SDL_Point center, int radius, SDL_Color color)
@@ -79,18 +82,70 @@ void BackLayer::createCircle(SDL_Point center, int radius, SDL_Color color)
 }
 
 // Possible offset of curve later.
-// tan, sin, cos possible
-void BackLayer::createCurvedLine(int curvesToRepeat, int lengthOfCurve)
-{
-    int startingX = 50, startingY = 500;
-    
+//
+// Distortion angle will rotate the line (0 is normal, negative is rotated
+// counter-clockwise, positive is rotated clockwise).
+void BackLayer::createCosLine(int curvesToRepeat, int lengthOfCurve, 
+                                 int startingX, int startingY)
+{ 
     for(int i = 0; i < curvesToRepeat; i++)
     {
-        for(float theta = 0; theta < 2*3.14159265; theta+=.001)
+        // Distortion angle is actually radians.
+        float distortionAngle = PI*1.25;
+
+        for(float theta = 0; theta < 2*PI; theta+=.001)
         {
-            SDL_RenderDrawPoint(renderer, startingX + theta*lengthOfCurve, 
-                   startingY + (cos(theta)*lengthOfCurve)); 
+            // Origin is top left, so place rotation origin point at current
+            // point.
+            float cosPointX = (theta*lengthOfCurve); //+ startingX;
+            float cosPointY = ((cos(theta)*lengthOfCurve)); //+ startingY;
+           
+            // Debug
+            //SDL_RenderDrawPoint(renderer, cosPointX + startingX, cosPointY + startingY); 
+            //std::cout << "x is " << cosPointX << " y is " << cosPointY << std::endl;
+
+            float rotatedPointX = (cosPointX*cos(distortionAngle)) 
+                                  - (cosPointY*sin(distortionAngle)) + startingX;
+            float rotatedPointY = (cosPointX*sin(distortionAngle)) 
+                                  + (cosPointY*cos(distortionAngle)) + startingY;
+            
+            // debug
+            //std::cout << "x is " << rotatedPointX << " y is " << rotatedPointY << std::endl;
+
+            SDL_RenderDrawPoint(renderer, rotatedPointX, rotatedPointY); 
         }
-        startingX += 2*3.14159265*lengthOfCurve;
+        startingX += ((2*PI*lengthOfCurve) * cos(distortionAngle));
+        startingY += ((2*PI*lengthOfCurve) * sin(distortionAngle));
     }
 }
+
+// Possible offset of curve later.
+void BackLayer::createSinLine(int curvesToRepeat, int lengthOfCurve, 
+                                 int startingX, int startingY)
+{
+    for(int i = 0; i < curvesToRepeat; i++)
+    {
+        for(float theta = 0; theta < 2*PI; theta+=.001)
+        {
+            SDL_RenderDrawPoint(renderer, startingX + theta*lengthOfCurve, 
+                   startingY + (sin(theta)*lengthOfCurve)); 
+        }
+        startingX += 2*PI*lengthOfCurve;
+    }
+}
+
+void BackLayer::createTanLine(int curvesToRepeat, int lengthOfCurve, 
+                                 int startingX, int startingY)
+{
+    for(int i = 0; i < curvesToRepeat; i++)
+    {
+        for(float theta = 0; theta < 2*PI; theta+=.001)
+        {
+            SDL_RenderDrawPoint(renderer, startingX + theta*lengthOfCurve, 
+                   startingY + (tan(theta)*lengthOfCurve)); 
+        }
+        startingX += 2*PI*lengthOfCurve;
+    }
+}
+
+// Create golden ratio function.

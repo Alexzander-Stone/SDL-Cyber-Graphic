@@ -10,5 +10,9 @@ private:
 
     void createSun();
     void createCircle(SDL_Point, int, SDL_Color);
-    void createCurvedLine(int, int);
+    
+    // Curves
+    void createCosLine(int, int, int, int);
+    void createSinLine(int, int, int, int);
+    void createTanLine(int, int, int, int);
 };
