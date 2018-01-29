@@ -196,6 +196,19 @@ void BackLayer::createTanLine(int curvesToRepeat, int lengthOfCurve,
 
 void BackLayer::createConsole(int width, int height, int positionX, int positionY)
 {
+    // Color palette for the console. Goes from darkest to brightest values.
+    struct ConsoleColor
+    {
+        int r;
+        int g;
+        int b;
+    };
+    ConsoleColor palette[4];
+    palette[0] = {1, 13, 33};
+    palette[1] = {2, 25, 65};
+    palette[2] = {1, 48, 128};
+    palette[3] = {0, 94, 255};
+
     // Create the rectangles postition and size.
     // Use the width and size of both the screen and the rectangle to draw to
     // the middle of the screen.
@@ -205,11 +218,9 @@ void BackLayer::createConsole(int width, int height, int positionX, int position
     console.x = positionX;
     console.y = positionY;
 
-    // Set the color of the rectangle border then draw to canvas. Then set the
-    // color of the fill of the rectangle and draw to canvas.
-    SDL_SetRenderDrawColor( renderer, 50, 50, 50, 122 ); 
+    // Set the color of the console and draw to the canvas.
+    SDL_SetRenderDrawColor( renderer, palette[1].r, palette[1].g, palette[1].b, 255); 
     SDL_RenderDrawRect(renderer, &console);
-    SDL_SetRenderDrawColor( renderer, 100, 50, 100, 122 );
     SDL_RenderFillRect( renderer, &console );    
     
 
@@ -222,16 +233,18 @@ void BackLayer::createConsole(int width, int height, int positionX, int position
     
     // Fill the rectangle with color.
     // Set the color of the rectangle then draw the rectangle to the renderer.
-    SDL_SetRenderDrawColor( renderer, 50, 50, 50, 122 );
+    SDL_SetRenderDrawColor( renderer, palette[0].r, palette[0].g, palette[0].b, 255);
     
     // Create four terminals by reusing the terminal values while chaning the x
     // and y.
-    for(int i = 0; i < 2; i++)
+    int terminalBorder = 10;
+    int terminalSpacing = height/8;
+    for(int xTransform = 0; xTransform < 2; xTransform++)
     {
-        for(int j = 0; j < 2; j++)
+        for(int yTransform = 0; yTransform < 2; yTransform++)
         {
-            terminal.x = console.x + (height/8 * i);
-            terminal.y = console.y + (height/8 * j);
+            terminal.x = console.x + terminalBorder + (terminalSpacing * xTransform);
+            terminal.y = console.y + terminalBorder + (terminalSpacing * yTransform);
          
             SDL_RenderDrawRect(renderer, &terminal); 
             SDL_RenderFillRect(renderer, &terminal);
