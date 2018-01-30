@@ -48,7 +48,6 @@ void BackLayer::draw()
     int consoleHeight = 500;
     createConsole(consoleWidth, consoleHeight, WIDTH/2 - (consoleWidth / 2), 
                   HEIGHT/2 - (consoleHeight / 2));
-
 }
 
 
@@ -209,6 +208,9 @@ void BackLayer::createConsole(int width, int height, int positionX, int position
     palette[2] = {1, 48, 128};
     palette[3] = {0, 94, 255};
 
+
+    /* Console base */
+
     // Create the rectangles postition and size.
     // Use the width and size of both the screen and the rectangle to draw to
     // the middle of the screen.
@@ -224,10 +226,20 @@ void BackLayer::createConsole(int width, int height, int positionX, int position
     SDL_RenderFillRect( renderer, &console );    
     
 
+    /* Slanted surfaces */
+    SDL_Rect slantedSurface;
+    slantedSurface.w = width;
+    slantedSurface.h = height;
+    
+
+
+
+    /* Terminals */
+
     // Set the color of the rectangle border then draw to canvas. Then set the
     // color of the fill of the rectangle and draw to canvas. 
     SDL_Rect terminal;
-    int terminalDownsize = 6;
+    float terminalDownsize = 6 * (width * height) / (300 * 500);
     terminal.w = width / terminalDownsize;
     terminal.h = height * ((float)width / height) / terminalDownsize;
     
@@ -237,8 +249,11 @@ void BackLayer::createConsole(int width, int height, int positionX, int position
     
     // Create four terminals by reusing the terminal values while chaning the x
     // and y.
-    int terminalBorder = 10;
-    int terminalSpacing = height/8;
+    float terminalBorder = 10 * (width * height) / (300 *500);
+    float terminalSpacing = height/8 * (width * height) / (300 * 500) / 2;
+    
+    std::cout << " " << terminalDownsize << "     " << terminalBorder << "   " << terminalSpacing << std::endl;
+    
     for(int xTransform = 0; xTransform < 2; xTransform++)
     {
         for(int yTransform = 0; yTransform < 2; yTransform++)
