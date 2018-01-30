@@ -235,12 +235,13 @@ void BackLayer::createConsole(int width, int height, int positionX, int position
 
 
     /* Terminals */
-
-    // Set the color of the rectangle border then draw to canvas. Then set the
-    // color of the fill of the rectangle and draw to canvas. 
+    // Default size created for console. Helps for resizing.
     SDL_Rect terminal;
-    float terminalDownsizeX = 50 * (width / 300.0);
-    float terminalDownsizeY = 50 * (height / 500.0);
+    
+    float terminalWidthRatio = (width / 300.0), terminalHeightRatio = (height / 500.0); 
+    float terminalDownsizeX = 50 * terminalWidthRatio;
+    float terminalDownsizeY = 50 * terminalHeightRatio;
+
     terminal.w = terminalDownsizeX;
     terminal.h = terminalDownsizeY;
    
@@ -252,13 +253,13 @@ void BackLayer::createConsole(int width, int height, int positionX, int position
     SDL_SetRenderDrawColor( renderer, palette[0].r, palette[0].g, palette[0].b, 255);
     
     // Create four terminals by reusing the terminal values while chaning the x
-    // and y.
-    float terminalBorderX = 10 * (width / 300.0);
-    float terminalBorderY = 10 * (height / 500.0);
-    //float terminalSpacingX = height/8.0 * (width / 300);
-    //float terminalSpacingY = width/4.8 * (height / 500);
-    float terminalSpacingX = 65 * (width / 300.0);
-    float terminalSpacingY = 65 * (height / 500.0);
+    // and y. 
+    // Border is the pixels between the edge of the console and the terminals.
+    // Spacing is the pixels between each edge of the terminals.
+    float terminalBorderX = 10 * terminalWidthRatio;
+    float terminalBorderY = 10 * terminalHeightRatio; 
+    float terminalSpacingX = 65 * terminalWidthRatio;
+    float terminalSpacingY = 65 * terminalHeightRatio;
 
 
     std::cout << "downsize: " << terminalDownsizeX << " and " << terminalDownsizeY 
