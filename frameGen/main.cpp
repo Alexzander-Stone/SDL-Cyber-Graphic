@@ -48,6 +48,7 @@ int main(void) {
 */
 
   /* Create consoles */
+  // give them different initial starting event points.
   int cFirstWidth = 300, cFirstHeight = 500; 
   Console firstConsole(cFirstWidth, cFirstHeight, WIDTH/2 - (cFirstHeight / 2), 
                        HEIGHT /2 - (cFirstWidth / 2));
@@ -56,7 +57,10 @@ int main(void) {
   int cSecondWidth = 500, cSecondHeight = 300; 
   Console secondConsole(cSecondWidth, cSecondHeight, 0, 0);
   secondConsole.draw(renderer);
-
+  
+  int cThirdWidth = 100, cThirdHeight = 100; 
+  Console thirdConsole(cThirdWidth, cThirdHeight, 900, 500);
+  thirdConsole.draw(renderer);
 
 
   // Draw the circle on the window/canvas.

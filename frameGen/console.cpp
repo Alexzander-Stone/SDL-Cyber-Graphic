@@ -24,6 +24,8 @@ void Console::draw(SDL_Renderer* renderer)
     palette[2] = {1, 48, 128};
     palette[3] = {0, 94, 255};
 
+    /* Sizing Ratio */
+    float widthRatio = (consoleWidth / 300.0), heightRatio = (consoleHeight / 500.0);
 
     /* Console base */
 
@@ -42,21 +44,50 @@ void Console::draw(SDL_Renderer* renderer)
     SDL_RenderFillRect( renderer, &console );    
     
 
+
+
+
+
     /* Slanted surfaces */
     SDL_Rect slantedSurface;
+
+    // Slant at top of console.
     slantedSurface.w = consoleWidth;
-    slantedSurface.h = consoleHeight;
-    
+    slantedSurface.h = 8 * heightRatio;
+    slantedSurface.x = positionX;
+    slantedSurface.y = positionY;
+
+    SDL_SetRenderDrawColor( renderer, palette[2].r, palette[2].g, palette[2].b, 255);
+    SDL_RenderDrawRect(renderer, &slantedSurface);
+    SDL_RenderFillRect(renderer, &slantedSurface);
+
+    // Dark slant at bottom of console.
+    slantedSurface.y = positionY + consoleHeight;
+
+    SDL_SetRenderDrawColor( renderer, palette[0].r, palette[0].g, palette[0].b, 255);
+    SDL_RenderDrawRect(renderer, &slantedSurface);
+    SDL_RenderFillRect(renderer, &slantedSurface);
+
+    // Slant at middle of console.
+    slantedSurface.w = 200 * widthRatio;
+    slantedSurface.h = 50 * heightRatio;
+    slantedSurface.x = positionX;
+    slantedSurface.y = positionY + (300 * heightRatio);
+
+    SDL_SetRenderDrawColor( renderer, palette[2].r, palette[2].g, palette[2].b, 255);
+    SDL_RenderDrawRect(renderer, &slantedSurface);
+    SDL_RenderFillRect(renderer, &slantedSurface);
+   
+
 
 
 
     /* Terminals */
     // Default size created for console. Helps for resizing.
     SDL_Rect terminal;
-    
-    float terminalWidthRatio = (consoleWidth / 300.0), terminalHeightRatio = (consoleHeight / 500.0); 
-    float terminalDownsizeX = 50 * terminalWidthRatio;
-    float terminalDownsizeY = 50 * terminalHeightRatio;
+     
+    float terminalDownsizeX = 50 * widthRatio;
+    float terminalDownsizeY = 50 * heightRatio;
 
     terminal.w = terminalDownsizeX;
     terminal.h = terminalDownsizeY;
@@ -72,10 +103,10 @@ void Console::draw(SDL_Renderer* renderer)
     // and y. 
     // Border is the pixels between the edge of the console and the terminals.
     // Spacing is the pixels between each edge of the terminals.
-    float terminalBorderX = 10 * terminalWidthRatio;
-    float terminalBorderY = 10 * terminalHeightRatio; 
-    float terminalSpacingX = 65 * terminalWidthRatio;
-    float terminalSpacingY = 65 * terminalHeightRatio;
+    float terminalBorderX = 10 * widthRatio;
+    float terminalBorderY = 10 * heightRatio; 
+    float terminalSpacingX = 65 * widthRatio;
+    float terminalSpacingY = 65 * heightRatio;
 
 
     std::cout << "downsize: " << terminalDownsizeX << " and " << terminalDownsizeY 
