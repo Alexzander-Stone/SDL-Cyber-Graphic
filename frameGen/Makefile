@@ -9,7 +9,8 @@ OBJS = \
   frameGenerator.o \
   main.o \
   backLayer.o \
-  frontLayer.o
+  frontLayer.o \
+  console.o
 
 EXEC = run
 

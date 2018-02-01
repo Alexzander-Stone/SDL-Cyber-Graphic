@@ -2,6 +2,7 @@
 #include "frameGenerator.h"
 #include "backLayer.h"
 #include "frontLayer.h"
+#include "console.h"
 
 const std::string NAME = "alexzas";
 const int WIDTH = 1280;
@@ -37,14 +38,26 @@ int main(void) {
   SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
   // Create the back layer for drawing. Then draw the back layer. 
-  BackLayer backLayer(renderer);
-  backLayer.draw();
+  //BackLayer backLayer(renderer);
+  //backLayer.draw();
 
 /*
   // Create the front layer for drawing. Then draw the front layer.
   FrontLayer frontLayer(renderer);
   frontLayer.draw();
 */
+
+  /* Create consoles */
+  int cFirstWidth = 300, cFirstHeight = 500; 
+  Console firstConsole(cFirstWidth, cFirstHeight, WIDTH/2 - (cFirstHeight / 2), 
+                       HEIGHT /2 - (cFirstWidth / 2));
+  firstConsole.draw(renderer);
+
+  int cSecondWidth = 500, cSecondHeight = 300; 
+  Console secondConsole(cSecondWidth, cSecondHeight, 0, 0);
+  secondConsole.draw(renderer);
+
+
 
   // Draw the circle on the window/canvas.
   SDL_Point circleCenter = {320, 240};

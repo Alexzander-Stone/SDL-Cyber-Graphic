@@ -48,6 +48,8 @@ void BackLayer::draw()
     int consoleHeight = 500;
     createConsole(consoleWidth, consoleHeight, WIDTH/2 - (consoleWidth / 2), 
                   HEIGHT/2 - (consoleHeight / 2));
+    createConsole(500, 300, WIDTH/2 - (consoleWidth / 2), 
+                  HEIGHT/2 - (consoleHeight / 2));
 }
 
 
