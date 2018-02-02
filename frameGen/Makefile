@@ -9,7 +9,6 @@ OBJS = \
   frameGenerator.o \
   main.o \
   backLayer.o \
-  frontLayer.o \
   console.o \
   circle.o \
   star.o

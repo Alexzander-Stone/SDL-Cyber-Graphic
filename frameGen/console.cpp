@@ -84,17 +84,50 @@ void Console::draw(SDL_Renderer* renderer)
     /* Buttons */
     int circleRadiusW = 10 * widthRatio;
     int circleRadiusH = 10 * heightRatio;
-    
-    for (int i = 0; i <= 0; i++)
-    {
-        SDL_Point circleCenter = {positionX + circleRadiusW + (10 * i), 
-                              positionY + (int)(300 * heightRatio) + circleRadiusH};
-        SDL_Color circleColor = {palette[0].r, palette[0].g, palette[0].b, 255};
-    
-        Circle firstCircle(circleCenter, circleRadiusW, circleRadiusH, circleColor);
-        firstCircle.draw(renderer);
-    }
+    int buttonSpacing = 5 * heightRatio;
+   
+    // col max, to allow for more buttons.
+    int colMax = slantedSurface.w / (circleRadiusW*2 + buttonSpacing);
 
+    // Debug
+    std::cout << "slant width is " << slantedSurface.w << ", button size is " << circleRadiusW << ", and colMax is " << colMax << std::endl;
+
+    // Square button setup.
+    SDL_Rect squareButton;
+
+    // Square button on slanted surface.
+    squareButton.w = 20 * widthRatio;
+    squareButton.h = 20 * heightRatio;
+    SDL_SetRenderDrawColor( renderer, palette[2].r, palette[2].g, palette[2].b, 255); 
+
+    for(int rows = 0; rows <= 1; rows++)
+    {
+        int col;
+        // Circle Buttons
+        for (col = 0; col < colMax - 3; col++)
+        {
+            SDL_Point circleCenter = {positionX + (col * circleRadiusW*2) + circleRadiusW, 
+                                      positionY + (int)(302 * heightRatio) + circleRadiusH 
+                                      + (rows * circleRadiusH*2) + (rows * buttonSpacing)};
+            SDL_Color circleColor = {palette[0].r, palette[0].g, palette[0].b, 255};
+    
+            Circle firstCircle(circleCenter, circleRadiusW, circleRadiusH, circleColor);
+            firstCircle.draw(renderer);
+        }
+        // Square Buttons
+        while(col < colMax)
+        {
+            
+            squareButton.x = positionX + (col * squareButton.w) + (col *buttonSpacing);
+            squareButton.y = positionY + (int)(303 * heightRatio) + (rows *squareButton.h)
+                               +  (rows * buttonSpacing);   
+            
+            SDL_RenderDrawRect(renderer, &squareButton);
+            SDL_RenderFillRect(renderer, &squareButton);
+
+            col++;
+        }
+    }
 
 
 

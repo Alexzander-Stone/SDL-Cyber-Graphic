@@ -1,7 +1,6 @@
 #include <SDL2/SDL.h>
 #include "frameGenerator.h"
 #include "backLayer.h"
-#include "frontLayer.h"
 #include "console.h"
 #include "circle.h"
 #include "star.h"
