@@ -4,6 +4,7 @@
 #include "frontLayer.h"
 #include "console.h"
 #include "circle.h"
+#include "star.h"
 
 const std::string NAME = "alexzas";
 const int WIDTH = 1280;
@@ -59,6 +60,16 @@ int main(void) {
 
   Circle firstCircle(circleCenter, circleRadiusW, circleRadiusH, circleColor);
   firstCircle.draw(renderer);
+
+
+  /* Stars */
+  SDL_Point starCenter = {700, 240};
+  SDL_Color starColor = {255,0,0,255};
+  int starRadiusW = 50;
+  int starRadiusH = 50;
+
+  Star firstStar(starCenter, starRadiusW, starRadiusH, starColor);
+  firstStar.draw(renderer);
 
 
   // Dump everything from the renderer to the screen.

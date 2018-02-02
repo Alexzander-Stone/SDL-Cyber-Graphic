@@ -11,7 +11,8 @@ OBJS = \
   backLayer.o \
   frontLayer.o \
   console.o \
-  circle.o
+  circle.o \
+  star.o
 
 EXEC = run
 

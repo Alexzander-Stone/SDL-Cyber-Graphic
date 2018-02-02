@@ -22,8 +22,6 @@ void Circle::draw(SDL_Renderer* renderer)
             float dx = w - circleRadiusW;
             float dy = h - circleRadiusH;
 
-            //std::cout << "x is " << dx << " and y is " << dy << std::endl;
-
             // If statement originally had circle formula in it, try placing
             // the ellipsis formula into it like how the circle formula was set
             // up (move radius to right side).
