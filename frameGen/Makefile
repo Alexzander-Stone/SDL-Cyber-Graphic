@@ -10,7 +10,8 @@ OBJS = \
   main.o \
   backLayer.o \
   frontLayer.o \
-  console.o
+  console.o \
+  circle.o
 
 EXEC = run
 

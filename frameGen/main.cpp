@@ -3,24 +3,11 @@
 #include "backLayer.h"
 #include "frontLayer.h"
 #include "console.h"
+#include "circle.h"
 
 const std::string NAME = "alexzas";
 const int WIDTH = 1280;
 const int HEIGHT = 720;
-
-void drawCircle(SDL_Renderer* renderer,
-  SDL_Point center, int radius, SDL_Color color) {
-  SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-  for (int w = 0; w < radius * 2; w++) {
-    for (int h = 0; h < radius * 2; h++) {
-      int dx = radius - w; // horizontal offset
-      int dy = radius - h; // vertical offset
-      if ((dx*dx + dy*dy) <= (radius * radius)) {
-        SDL_RenderDrawPoint(renderer, center.x + dx, center.y + dy);
-      }
-    }
-  }
-}
 
 int main(void) {
   SDL_Renderer *renderer;
@@ -63,10 +50,14 @@ int main(void) {
   thirdConsole.draw(renderer);
 
 
-  // Draw the circle on the window/canvas.
+  /* Circles */ 
   SDL_Point circleCenter = {320, 240};
   SDL_Color circleColor = {255,0,0,255};
-  drawCircle(renderer, circleCenter, 50, circleColor);
+  int circleRadius = 50;
+
+  Circle firstCircle(circleCenter, circleRadius, circleColor);
+  firstCircle.draw(renderer);
+
 
   // Dump everything from the renderer to the screen.
   SDL_RenderPresent(renderer);

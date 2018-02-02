@@ -78,6 +78,15 @@ void Console::draw(SDL_Renderer* renderer)
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
    
+    
+
+
+
+    /* Buttons */
+    
+
+
+
 
 
 
