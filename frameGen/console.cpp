@@ -1,8 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include "console.h"
-
-const float PI = 3.14159265;
+#include "circle.h"
 
 Console::Console(const int cWidth, const int cHeight, const int posX, const int posY) 
                 : consoleWidth(cWidth), consoleHeight(cHeight), positionX(posX), positionY(posY) 
@@ -14,9 +13,9 @@ void Console::draw(SDL_Renderer* renderer)
     // Color palette for the console. Goes from darkest to brightest values.
     struct ConsoleColor
     {
-        int r;
-        int g;
-        int b;
+        Uint8 r;
+        Uint8 g;
+        Uint8 b;
     };
     ConsoleColor palette[4];
     palette[0] = {1, 13, 33};
@@ -83,9 +82,18 @@ void Console::draw(SDL_Renderer* renderer)
 
 
     /* Buttons */
+    int circleRadiusW = 10 * widthRatio;
+    int circleRadiusH = 10 * heightRatio;
     
-
-
+    for (int i = 0; i <= 9; i++)
+    {
+        SDL_Point circleCenter = {positionX + circleRadiusW + (10 * i), 
+                              positionY + (int)(300 * heightRatio) + circleRadiusH};
+        SDL_Color circleColor = {palette[0].r, palette[0].g, palette[0].b, 255};
+    
+        Circle firstCircle(circleCenter, circleRadiusW, circleRadiusH, circleColor);
+        firstCircle.draw(renderer);
+    }
 
 
 

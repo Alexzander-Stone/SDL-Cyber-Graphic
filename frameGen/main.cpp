@@ -42,20 +42,22 @@ int main(void) {
   firstConsole.draw(renderer);
 
   int cSecondWidth = 500, cSecondHeight = 300; 
-  Console secondConsole(cSecondWidth, cSecondHeight, 0, 0);
+  Console secondConsole(cSecondWidth, cSecondHeight, 200, 200);
   secondConsole.draw(renderer);
   
-  int cThirdWidth = 100, cThirdHeight = 100; 
-  Console thirdConsole(cThirdWidth, cThirdHeight, 900, 500);
+  int cThirdWidth = 200, cThirdHeight = 200; 
+  Console thirdConsole(cThirdWidth, cThirdHeight, 
+                       900-cThirdWidth, 500-cThirdHeight);
   thirdConsole.draw(renderer);
 
 
   /* Circles */ 
   SDL_Point circleCenter = {320, 240};
   SDL_Color circleColor = {255,0,0,255};
-  int circleRadius = 50;
+  int circleRadiusW = 50;
+  int circleRadiusH = 50;
 
-  Circle firstCircle(circleCenter, circleRadius, circleColor);
+  Circle firstCircle(circleCenter, circleRadiusW, circleRadiusH, circleColor);
   firstCircle.draw(renderer);
 
 
