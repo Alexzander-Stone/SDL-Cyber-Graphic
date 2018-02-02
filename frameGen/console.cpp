@@ -85,7 +85,7 @@ void Console::draw(SDL_Renderer* renderer)
     int circleRadiusW = 10 * widthRatio;
     int circleRadiusH = 10 * heightRatio;
     
-    for (int i = 0; i <= 9; i++)
+    for (int i = 0; i <= 0; i++)
     {
         SDL_Point circleCenter = {positionX + circleRadiusW + (10 * i), 
                               positionY + (int)(300 * heightRatio) + circleRadiusH};

@@ -10,31 +10,28 @@ Circle::Circle(const SDL_Point center, const int radiusW, const int radiusH, con
 
 void Circle::draw(SDL_Renderer* renderer)
 {
-    int squaredRadW = circleRadiusW * circleRadiusW;
-    int squaredRadH = circleRadiusH * circleRadiusH;
     // Draw circles
     SDL_SetRenderDrawColor(renderer, circleColor.r, circleColor.g, circleColor.b, circleColor.a);
-    for(int w = 0; w < circleRadiusW * 2; w++)
+    for(float theta = 0; theta < 3.14 * 2; theta+= .001)
     {
-        for(int h = 0; h < circleRadiusH * 2; h++)
-        {
             // x = a cos theta and y = b cos theta
-            float dx = w - circleRadiusW;
-            float dy = h - circleRadiusH;
+            float dx = circleRadiusW * cos(theta);
+            float dy = circleRadiusH * sin(theta);
 
             //std::cout << "x is " << dx << " and y is " << dy << std::endl;
 
             // If statement originally had circle formula in it, try placing
             // the ellipsis formula into it like how the circle formula was set
-            // up (move radius to right side).
+            // up.
             //
             // (x^2) + (b^2) = r^2
-            // (x^2/a^2) + (y^2/b^2) = 1 -> (x^2*b^2) + (y^2*a^2) = a^2*b^2
-            // a = radius width, b = radius height
-            if(( (dx*dx*squaredRadH) + (dy*dy*squaredRadW) ) <= squaredRadW*squaredRadH)
-            {
+            // (x^2/a^2) + (y^2/b^2) = 1 -> (x^2*b^2) + (y^2*a^2) = a^2*b^2 
+            //if(((dx*dx/(float)circleRadiusW*circleRadiusW) + (dy*dy/(float)circleRadiusH*circleRadiusH)) <= 1)
+            //{
+                // Determine the a and b of the ellipse formula.
+
                 SDL_RenderDrawPoint(renderer, circleCenter.x + dx, circleCenter.y + dy);
-            }
-        }
+            //}
+        
     }
 }
