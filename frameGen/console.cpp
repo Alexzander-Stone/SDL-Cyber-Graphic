@@ -18,10 +18,11 @@ void Console::draw(SDL_Renderer* renderer)
         Uint8 b;
     };
     ConsoleColor palette[4];
-    palette[0] = {1, 13, 33};
-    palette[1] = {2, 25, 65};
-    palette[2] = {1, 48, 128};
-    palette[3] = {0, 94, 255};
+    palette[0] = {1, 13, 33}; // Background
+    palette[1] = {1, 18, 45}; // Detail (Button)
+    palette[2] = {2, 25, 65}; // Detail (Console Base)
+    palette[3] = {1, 48, 128}; // Highlight (Slants)
+    palette[4] = {0, 94, 255}; // Super Bright
 
     /* Sizing Ratio */
     float widthRatio = (consoleWidth / 300.0), heightRatio = (consoleHeight / 500.0);
@@ -38,7 +39,7 @@ void Console::draw(SDL_Renderer* renderer)
     console.y = positionY;
 
     // Set the color of the console and draw to the canvas.
-    SDL_SetRenderDrawColor( renderer, palette[1].r, palette[1].g, palette[1].b, 255); 
+    SDL_SetRenderDrawColor( renderer, palette[2].r, palette[2].g, palette[2].b, 255); 
     SDL_RenderDrawRect(renderer, &console);
     SDL_RenderFillRect( renderer, &console );    
     
@@ -56,7 +57,7 @@ void Console::draw(SDL_Renderer* renderer)
     slantedSurface.x = positionX;
     slantedSurface.y = positionY;
 
-    SDL_SetRenderDrawColor( renderer, palette[2].r, palette[2].g, palette[2].b, 255);
+    SDL_SetRenderDrawColor( renderer, palette[3].r, palette[3].g, palette[3].b, 255);
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
 
@@ -73,7 +74,7 @@ void Console::draw(SDL_Renderer* renderer)
     slantedSurface.x = positionX;
     slantedSurface.y = positionY + (300 * heightRatio);
 
-    SDL_SetRenderDrawColor( renderer, palette[2].r, palette[2].g, palette[2].b, 255);
+    SDL_SetRenderDrawColor( renderer, palette[3].r, palette[3].g, palette[3].b, 255);
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
    
@@ -104,20 +105,19 @@ void Console::draw(SDL_Renderer* renderer)
         for (col = 0; col < colMax - 3; col++)
         {
             // Create the ellipsis at the bottom of the button.
-            // CHANGE Y LOCATION!!!!!!!!!!!!!!!!
             SDL_Point ellipseCenter = {positionX + (col * ellipseRadiusW*2) + ellipseRadiusW 
-                            + (col * buttonSpacing), positionY + (int)(302 * heightRatio) 
-                            + ellipseRadiusH + (rows * ellipseRadiusH*2) + (rows * buttonSpacing)
-                            + 200};
-            SDL_Color ellipseColor = {palette[1].r, palette[1].g, palette[1].b, 255};
+                                      + (col * buttonSpacing), positionY + (int)(300 * heightRatio) 
+                                      + ellipseRadiusH + (rows * ellipseRadiusH*2) + (rows * buttonSpacing)
+                                      };
+            SDL_Color ellipseColor = {palette[0].r, palette[0].g, palette[0].b, 255};
             Circle bottomButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
 
             // Top of the buttons.
             ellipseCenter = {positionX + (col * ellipseRadiusW*2) + ellipseRadiusW 
-                                      + (col *buttonSpacing), 
-                                      positionY + (int)(302 * heightRatio) + ellipseRadiusH 
-                                      + (rows * ellipseRadiusH*2) + (rows * buttonSpacing)
-                                      - (ellipseRadiusH/4)};
+                            + (col *buttonSpacing), 
+                            positionY + (int)(300 * heightRatio) + ellipseRadiusH 
+                            + (rows * ellipseRadiusH*2) + (rows * buttonSpacing)
+                            - (ellipseRadiusH/4) - (int)(5 * heightRatio)};
             ellipseColor = {palette[1].r, palette[1].g, palette[1].b, 255};
             Circle topButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
 
