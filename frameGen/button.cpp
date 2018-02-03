@@ -1,41 +1,34 @@
 #include <iostream>
-#include <math.h>
-#include "star.h"
+#include "button.h"
+#include "circle.h"
 
-Star::Star(const SDL_Point center, const int radiusW, const int radiusH, const SDL_Color color)
-              : starCenter(center), starRadiusW(radiusW), 
-                starRadiusH(radiusH), starColor(color)
+Button::Button(const SDL_Point center, const int radiusW, const int radiusH, const SDL_Color color)
+              : ellipseRadiusW(radiusW), ellipseRadiusH(radiusH), ellipseCenter(center), palette(palette) 
 {
 }
 
-void Star::draw(SDL_Renderer* renderer)
+void Button::draw(SDL_Renderer* renderer)
 {
-    int squaredRadW = starRadiusW * starRadiusW;
-    int squaredRadH = starRadiusH * starRadiusH;
-    
-    SDL_SetRenderDrawColor(renderer, starColor.r, starColor.g, starColor.b, starColor.a);
-    for(int w = 0; w < starRadiusW * 2; w++)
-    {
-        for(int h = 0; h < starRadiusH * 2; h++)
-        {
-            // x = a cos theta and y = b cos theta
-            float dx = w - starRadiusW;
-            float dy = h - starRadiusH;
+    SDL_Color ellipseColor = {palette[0].r, palette[0].g, palette[0].b, 255};
+    Circle bottomButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
 
-            // If statement originally had circle formula in it, try placing
-            // the ellipsis formula into it like how the circle formula was set
-            // up (move radius to right side).
-            //
-            // (x^2) + (b^2) = r^2
-            // (x^2/a^2) + (y^2/b^2) = 1 -> (x^2*b^2) + (y^2*a^2) = a^2*b^2
-            // a = radius width, b = radius height
-            
+    // Top of the buttons.
+    ellipseCenter = {positionX + (col * ellipseRadiusW*2) + ellipseRadiusW 
+                    + (col *buttonSpacing), 
+                    positionY + (int)(300 * heightRatio) + ellipseRadiusH 
+                    + (rows * ellipseRadiusH*2) + (rows * buttonSpacing)
+                    - (ellipseRadiusH/4) - (int)(5 * heightRatio)};
+    ellipseColor = {palette[1].r, palette[1].g, palette[1].b, 255};
+    Circle topButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
 
-            /* Messed up the formula, but made really cool star object. */
-            if((dx*dx*starRadiusH* + dy*dy*starRadiusW ) <= squaredRadW*squaredRadH)
-            {
-                SDL_RenderDrawPoint(renderer, starCenter.x + dx, starCenter.y + dy);
-            }
-        }
-    }
+    // Add depth to the bottom of the buttons.
+    SDL_SetRenderDrawColor( renderer, palette[0].r, palette[0].g, palette[0].b, 255);
+    squareButton.x = ellipseCenter.x - squareButton.w/2;
+    squareButton.y = ellipseCenter.y - squareButton.h/4;   
+
+    //Render the bottom to the top.
+    SDL_RenderDrawRect(renderer, &squareButton);
+    SDL_RenderFillRect(renderer, &squareButton);
+    bottomButtonEllipse.draw(renderer);
+    topButtonEllipse.draw(renderer);
 }

@@ -2,6 +2,7 @@
 #include <math.h>
 #include "console.h"
 #include "circle.h"
+#include "button.h"
 
 Console::Console(const int cWidth, const int cHeight, const int posX, const int posY) 
                 : consoleWidth(cWidth), consoleHeight(cHeight), positionX(posX), positionY(posY) 
@@ -105,10 +106,14 @@ void Console::draw(SDL_Renderer* renderer)
         for (col = 0; col < colMax - 3; col++)
         {
             // Create the ellipsis at the bottom of the button.
-            SDL_Point ellipseCenter = {positionX + (col * ellipseRadiusW*2) + ellipseRadiusW 
+            SDL_Point buttonCenter = {positionX + (col * ellipseRadiusW*2) + ellipseRadiusW 
                                       + (col * buttonSpacing), positionY + (int)(300 * heightRatio) 
                                       + ellipseRadiusH + (rows * ellipseRadiusH*2) + (rows * buttonSpacing)
                                       };
+
+            Button consoleButton(buttonCenter, palette, ellipseRadiusW, ellipseRadiusH); 
+
+/*
             SDL_Color ellipseColor = {palette[0].r, palette[0].g, palette[0].b, 255};
             Circle bottomButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
 
@@ -131,6 +136,7 @@ void Console::draw(SDL_Renderer* renderer)
             SDL_RenderFillRect(renderer, &squareButton);
             bottomButtonEllipse.draw(renderer);
             topButtonEllipse.draw(renderer);
+        */
         }
         // Square Buttons
         while(col < colMax)
