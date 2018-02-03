@@ -82,23 +82,20 @@ void Console::draw(SDL_Renderer* renderer)
 
 
     /* Buttons */
-    int circleRadiusW = 10 * widthRatio;
-    int circleRadiusH = 10 * heightRatio;
+    int ellipseRadiusW = 10 * widthRatio;
+    int ellipseRadiusH = 10 * heightRatio;
     int buttonSpacing = 5 * heightRatio;
    
     // col max, to allow for more buttons.
-    int colMax = slantedSurface.w / (circleRadiusW*2 + buttonSpacing);
-
-    // Debug
-    std::cout << "slant width is " << slantedSurface.w << ", button size is " << circleRadiusW << ", and colMax is " << colMax << std::endl;
+    int colMax = slantedSurface.w / (ellipseRadiusW*2 + buttonSpacing);
 
     // Square button setup.
     SDL_Rect squareButton;
 
     // Square button on slanted surface.
-    squareButton.w = 20 * widthRatio;
-    squareButton.h = 20 * heightRatio;
-    SDL_SetRenderDrawColor( renderer, palette[2].r, palette[2].g, palette[2].b, 255); 
+    squareButton.w = 18 * widthRatio;
+    squareButton.h = 18 * heightRatio;
+     
 
     for(int rows = 0; rows <= 1; rows++)
     {
@@ -106,18 +103,39 @@ void Console::draw(SDL_Renderer* renderer)
         // Circle Buttons
         for (col = 0; col < colMax - 3; col++)
         {
-            SDL_Point circleCenter = {positionX + (col * circleRadiusW*2) + circleRadiusW, 
-                                      positionY + (int)(302 * heightRatio) + circleRadiusH 
-                                      + (rows * circleRadiusH*2) + (rows * buttonSpacing)};
-            SDL_Color circleColor = {palette[0].r, palette[0].g, palette[0].b, 255};
-    
-            Circle firstCircle(circleCenter, circleRadiusW, circleRadiusH, circleColor);
-            firstCircle.draw(renderer);
+            // Create the ellipsis at the bottom of the button.
+            // CHANGE Y LOCATION!!!!!!!!!!!!!!!!
+            SDL_Point ellipseCenter = {positionX + (col * ellipseRadiusW*2) + ellipseRadiusW 
+                            + (col * buttonSpacing), positionY + (int)(302 * heightRatio) 
+                            + ellipseRadiusH + (rows * ellipseRadiusH*2) + (rows * buttonSpacing)
+                            + 200};
+            SDL_Color ellipseColor = {palette[1].r, palette[1].g, palette[1].b, 255};
+            Circle bottomButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
+
+            // Top of the buttons.
+            ellipseCenter = {positionX + (col * ellipseRadiusW*2) + ellipseRadiusW 
+                                      + (col *buttonSpacing), 
+                                      positionY + (int)(302 * heightRatio) + ellipseRadiusH 
+                                      + (rows * ellipseRadiusH*2) + (rows * buttonSpacing)
+                                      - (ellipseRadiusH/4)};
+            ellipseColor = {palette[1].r, palette[1].g, palette[1].b, 255};
+            Circle topButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
+
+            // Add depth to the bottom of the buttons.
+            SDL_SetRenderDrawColor( renderer, palette[0].r, palette[0].g, palette[0].b, 255);
+            squareButton.x = ellipseCenter.x - squareButton.w/2;
+            squareButton.y = ellipseCenter.y - squareButton.h/4;   
+
+            //Render the bottom to the top.
+            SDL_RenderDrawRect(renderer, &squareButton);
+            SDL_RenderFillRect(renderer, &squareButton);
+            bottomButtonEllipse.draw(renderer);
+            topButtonEllipse.draw(renderer);
         }
         // Square Buttons
         while(col < colMax)
         {
-            
+            // Top of the button. 
             squareButton.x = positionX + (col * squareButton.w) + (col *buttonSpacing);
             squareButton.y = positionY + (int)(303 * heightRatio) + (rows *squareButton.h)
                                +  (rows * buttonSpacing);   
