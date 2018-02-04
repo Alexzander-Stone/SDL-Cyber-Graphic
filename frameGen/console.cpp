@@ -20,7 +20,7 @@ void Console::draw(SDL_Renderer* renderer)
     palette.addPalette(0, 94, 255); // Super Bright
 
     /* Sizing Ratio */
-    float widthRatio = (consoleWidth / 300.0), heightRatio = (consoleHeight / 500.0);
+    float widthRatio = (consoleWidth / 320.0), heightRatio = (consoleHeight / 540.0);
 
     /* Console base */
 
@@ -79,9 +79,9 @@ void Console::draw(SDL_Renderer* renderer)
         
         
     /* Buttons */
-    int ellipseRadiusW = 10 * widthRatio;
-    int ellipseRadiusH = 10 * heightRatio;
-    int buttonSpacing = 5 * heightRatio;    
+    float ellipseRadiusW = 10 * widthRatio;
+    float ellipseRadiusH = 10 * heightRatio;
+    float buttonSpacing = 5 * heightRatio;    
 
     // The amount of buttons placed will be determined by the size of the
     // canvas it's sitting on (width).
@@ -102,13 +102,19 @@ void Console::draw(SDL_Renderer* renderer)
         // Circle Buttons
         for (col = 0; col < colMax-3; col++)
         {
-
-            SDL_Point buttonCenter = {positionX + (col * ellipseRadiusW*2) 
-                                      + ellipseRadiusW + (col * buttonSpacing), 
-                                      positionY + (int)(300 * heightRatio) 
+            
+            SDL_Point buttonCenter = {(int)(positionX + (col * ellipseRadiusW*2) 
+                                      + ellipseRadiusW + (col * buttonSpacing)), 
+                                      (int)(positionY + (int)(300 * heightRatio) 
                                       + ellipseRadiusH + (rows * ellipseRadiusH*2) 
-                                      + (rows * buttonSpacing)};
-            Button consoleButton(ellipseRadiusW, ellipseRadiusH, buttonCenter, squareButton, palette);
+                                      + (rows * buttonSpacing))};
+            std::cout << "positionx: " << positionX << " ellipseRadiusW: " 
+                      << ellipseRadiusW << " x is " << buttonCenter.x 
+                      << "and y is " << buttonCenter.y << std::endl;
+
+            Button consoleButton(ellipseRadiusW, ellipseRadiusH, 
+                                 buttonCenter, squareButton, 
+                                 palette);
             consoleButton.draw(renderer);
         }
 

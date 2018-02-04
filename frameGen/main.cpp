@@ -38,11 +38,11 @@ int main(void) {
 
   /* Create consoles */
   // give them different initial starting event points.
-  int cFirstWidth = 300, cFirstHeight = 500; 
+  int cFirstWidth = 320, cFirstHeight = 540; 
   Console firstConsole(cFirstWidth, cFirstHeight, WIDTH/2 - (cFirstHeight / 2), 
                        HEIGHT /2 - (cFirstWidth / 2));
   firstConsole.draw(renderer);
-
+/*
   int cSecondWidth = 500, cSecondHeight = 300; 
   Console secondConsole(cSecondWidth, cSecondHeight, 200, 200);
   secondConsole.draw(renderer);
@@ -51,7 +51,7 @@ int main(void) {
   Console thirdConsole(cThirdWidth, cThirdHeight, 
                        900-cThirdWidth, 500-cThirdHeight);
   thirdConsole.draw(renderer);
-
+*/
 
   /* Circles */ 
   SDL_Point circleCenter = {320, 240};
