@@ -177,4 +177,79 @@ void Console::draw(SDL_Renderer* renderer)
         }
     }
 
+    /* Drawers */
+    SDL_Rect drawer;
+    
+    float drawerDownsizeWidth = 80 * widthRatio;
+    float drawerDownsizeHeight = 35 * heightRatio;
+    float drawerSpacing = 10 * heightRatio; 
+    float drawerRimOffsetWidth = 10 * widthRatio;
+    float drawerRimOffsetHeight = 10 * heightRatio;
+
+    // Create three drawers.
+    for( int numbDrawers = 0; numbDrawers < 4; numbDrawers++)
+    {
+        // Outside rim of drawer 
+        drawer.w = drawerDownsizeWidth;
+        drawer.h = drawerDownsizeHeight;
+        drawer.y = positionY + (360 * heightRatio) + (numbDrawers * drawer.h) 
+                   + (numbDrawers * drawerSpacing);
+        drawer.x = positionX + (20 * widthRatio);
+
+        SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+        SDL_RenderDrawRect(renderer, &drawer); 
+        SDL_RenderFillRect(renderer, &drawer);
+
+        // Inside of drawer 
+        drawer.w = drawerDownsizeWidth - drawerRimOffsetWidth;
+        drawer.h = drawerDownsizeHeight - drawerRimOffsetHeight;
+        drawer.y += drawerRimOffsetHeight/2;
+        drawer.x += drawerRimOffsetWidth/2;
+
+        SDL_SetRenderDrawColor( renderer, palette.getR(2), palette.getG(2), palette.getB(2), 255);
+        SDL_RenderDrawRect(renderer, &drawer); 
+        SDL_RenderFillRect(renderer, &drawer);
+
+        // Handle of drawer
+        drawer.w = drawerDownsizeWidth / 5;
+        drawer.h = drawerDownsizeHeight / 5;
+        drawer.x += 45 * widthRatio;
+        drawer.y += 10 * heightRatio;
+
+        SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+        SDL_RenderDrawRect(renderer, &drawer); 
+        SDL_RenderFillRect(renderer, &drawer);
+    }
+
+    // Create one large drawer/cabinet.
+    drawer.w = 150 * widthRatio;
+    drawer.h = 170 * heightRatio;
+    drawer.x = positionX + (150 * widthRatio);
+    drawer.y = positionY + (360 * heightRatio);
+    
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_RenderDrawRect(renderer, &drawer); 
+    SDL_RenderFillRect(renderer, &drawer);
+    
+    // Inside of drawer 
+    drawer.w -= drawerRimOffsetWidth;
+    drawer.h -= drawerRimOffsetHeight;
+    drawer.y += drawerRimOffsetHeight/2;
+    drawer.x += drawerRimOffsetWidth/2;
+
+    SDL_SetRenderDrawColor( renderer, palette.getR(2), palette.getG(2), palette.getB(2), 255);
+    SDL_RenderDrawRect(renderer, &drawer); 
+    SDL_RenderFillRect(renderer, &drawer);
+
+    // Handle of drawer
+    drawer.w = drawerDownsizeWidth / 2;
+    drawer.h = drawerDownsizeHeight / 2;
+    drawer.x += 20 * widthRatio;
+    drawer.y += 60 * heightRatio;
+
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_RenderDrawRect(renderer, &drawer); 
+    SDL_RenderFillRect(renderer, &drawer);
+
+     
 }
