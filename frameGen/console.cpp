@@ -34,8 +34,8 @@ void Console::draw(SDL_Renderer* renderer)
     console.y = positionY;
 
     // Set the color of the console and draw to the canvas.
-    SDL_SetRenderDrawColor( renderer, palette.getR()[2], 
-                            palette.getG()[2], palette.getB()[2], 255); 
+    SDL_SetRenderDrawColor( renderer, palette.getR(2), 
+                            palette.getG(2), palette.getB(2), 255); 
     SDL_RenderDrawRect(renderer, &console);
     SDL_RenderFillRect( renderer, &console );    
 
@@ -52,7 +52,7 @@ void Console::draw(SDL_Renderer* renderer)
     slantedSurface.y = positionY;
 
     SDL_SetRenderDrawColor( renderer,
-                            palette[2].r, palette[2].g, palette[2].b, 255);
+                            palette.getR(2), palette.getG(2), palette.getB(2), 255);
 
 
 
@@ -62,7 +62,7 @@ void Console::draw(SDL_Renderer* renderer)
     // Dark slant at bottom of console.
     slantedSurface.y = positionY + consoleHeight;
     
-    SDL_SetRenderDrawColor( renderer, palette[0].r, palette[0].g, palette[0].b, 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
     
@@ -72,7 +72,7 @@ void Console::draw(SDL_Renderer* renderer)
     slantedSurface.x = positionX;
     slantedSurface.y = positionY + (300 * heightRatio);
     
-    SDL_SetRenderDrawColor( renderer, palette[2].r, palette[2].g, palette[2].b, 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
        
@@ -108,7 +108,7 @@ void Console::draw(SDL_Renderer* renderer)
                                       positionY + (int)(300 * heightRatio) 
                                       + ellipseRadiusH + (rows * ellipseRadiusH*2) 
                                       + (rows * buttonSpacing)};
-            Button consoleButton(buttonCenter, palette, ellipseRadiusW, ellipseRadiusH, squareButton);
+            Button consoleButton(ellipseRadiusW, ellipseRadiusH, buttonCenter, squareButton, palette);
         }
 
         // Square Buttons
@@ -139,7 +139,7 @@ void Console::draw(SDL_Renderer* renderer)
               << terminal.h << std::endl;
             
     // Set the color of the rectangle then draw the rectangle to the renderer.
-    SDL_SetRenderDrawColor( renderer, palette[0].r, palette[0].g, palette[0].b, 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
         
     // Create four terminals by reusing the terminal values while chaning the x
     // and y. 

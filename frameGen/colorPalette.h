@@ -14,9 +14,9 @@ class ColorPalette
         ColorPalette(const ColorPalette&);
 
 
-        const std::vector<Uint8> getR() const;
-        const std::vector<Uint8> getG() const;
-        const std::vector<Uint8> getB() const;
+        Uint8 getR(const int) const;
+        Uint8 getG(const int) const;
+        Uint8 getB(const int) const;
         void addPalette(const Uint8, const Uint8, const Uint8); // r, g, b
 
     private:

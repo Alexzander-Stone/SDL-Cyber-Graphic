@@ -35,17 +35,17 @@ void ColorPalette::addPalette(const Uint8 red, const Uint8 green, const Uint8 bl
     b.push_back(blue);
 }
 
-const std::vector<Uint8> ColorPalette::getR() const
+Uint8 ColorPalette::getR(const int index) const
 {
-    return r;
+    return r[index];
 }
 
-const std::vector<Uint8> ColorPalette::getG() const
+Uint8 ColorPalette::getG(const int index) const
 {
-    return g;
+    return g[index];
 }
 
-const std::vector<Uint8> ColorPalette::getB() const
+Uint8 ColorPalette::getB(const int index) const
 {
-    return b;
+    return b[index];
 }
