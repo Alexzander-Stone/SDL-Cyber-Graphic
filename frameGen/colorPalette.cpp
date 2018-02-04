@@ -1,14 +1,51 @@
-#include <vector>
 #include "colorPalette.h"
 
-// Conversion constructor
-ColorPalette::ColorPalette(Uint8 red, Uint8 green, Uint8 blue):
+// Default
+ColorPalette::ColorPalette()
 {
-    // Reserve space for palette choices.
     r.reserve(5);
     g.reserve(5);
     b.reserve(5);
 }
 
+// Conversion constructor
+ColorPalette::ColorPalette(const Uint8 red, const Uint8 green, const Uint8 blue)
+{
+    // Reserve space for palette choices.
+    r.reserve(5);
+    g.reserve(5);
+    b.reserve(5);
+
+    // Place new rgb values into the vectors.
+    r.push_back(red);
+    g.push_back(green);
+    b.push_back(blue);
+}
+
 // Copy constructor
-ColorPalette::ColorPalette
+ColorPalette::ColorPalette(const ColorPalette& palette): r(palette.r), g(palette.g), b(palette.b)
+{
+}
+
+void ColorPalette::addPalette(const Uint8 red, const Uint8 green, const Uint8 blue)
+{
+    // Place new rgb values into the vectors.
+    r.push_back(red);
+    g.push_back(green);
+    b.push_back(blue);
+}
+
+const std::vector<Uint8> ColorPalette::getR() const
+{
+    return r;
+}
+
+const std::vector<Uint8> ColorPalette::getG() const
+{
+    return g;
+}
+
+const std::vector<Uint8> ColorPalette::getB() const
+{
+    return b;
+}

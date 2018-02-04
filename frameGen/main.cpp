@@ -4,6 +4,8 @@
 #include "console.h"
 #include "circle.h"
 #include "star.h"
+#include "button.h"
+//#include "colorPalette.h"
 
 const std::string NAME = "alexzas";
 const int WIDTH = 1280;

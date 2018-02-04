@@ -11,7 +11,9 @@ OBJS = \
   backLayer.o \
   console.o \
   circle.o \
-  star.o
+  star.o \
+  colorPalette.o \
+  button.o 
 
 EXEC = run
 

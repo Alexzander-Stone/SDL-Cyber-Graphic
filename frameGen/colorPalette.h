@@ -1,22 +1,26 @@
 // Color palette for the console. Goes from darkest to brightest values.
 #include <vector>
+#include <SDL.h>
 
 class ColorPalette
 {
     public:
-
-        Uint8 getR();
-        Uint8 getG();
-        Uint8 getB();
-        const addPalette(Uint8 red, Uint8 green, Uint8 blue);
-
-        // Conversion
-        ColorPalette(Uint8 red, Uint8 green, Uint8 blue); 
+        
+        // Default
+        ColorPalette();
+        // Conversion (r,g,b)
+        ColorPalette(const Uint8, const Uint8, const Uint8); 
         // Copy
         ColorPalette(const ColorPalette&);
 
+
+        const std::vector<Uint8> getR() const;
+        const std::vector<Uint8> getG() const;
+        const std::vector<Uint8> getB() const;
+        void addPalette(const Uint8, const Uint8, const Uint8); // r, g, b
+
     private:
-        vector <Uint8> r;
-        vector <Uint8> g;
-        vector <Uint8> b;
+        std::vector <Uint8> r;
+        std::vector <Uint8> g;
+        std::vector <Uint8> b;
 };
