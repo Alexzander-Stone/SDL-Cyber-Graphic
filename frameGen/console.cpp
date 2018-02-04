@@ -109,6 +109,7 @@ void Console::draw(SDL_Renderer* renderer)
                                       + ellipseRadiusH + (rows * ellipseRadiusH*2) 
                                       + (rows * buttonSpacing)};
             Button consoleButton(ellipseRadiusW, ellipseRadiusH, buttonCenter, squareButton, palette);
+            consoleButton.draw(renderer);
         }
 
         // Square Buttons

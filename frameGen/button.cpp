@@ -13,20 +13,23 @@ Button::Button(const int eRadiusW, const int eRadiusH,
 
 void Button::draw(SDL_Renderer* renderer)
 {
-    //SDL_Color ellipseColor = {palette[0].r, palette[0].g, palette[0].b, 255};
-    SDL_Color ellipseColor = {55, 55, 55, 255};
+    SDL_Color ellipseColor = {palette.getR(3), palette.getG(3), palette.getB(3), 255};
+    ellipseCenter.y += ellipseRadiusH/2;
     Circle bottomButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
+    ellipseCenter.y -= ellipseRadiusH/2;
 
     // Top of the buttons.
-    //ellipseColor = {palette[1].r, palette[1].g, palette[1].b, 255};
-    ellipseColor = {55, 55, 55, 255};
-    Circle topButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
-
+    ellipseColor = {palette.getR(4), palette.getG(4), palette.getB(4), 255};
+    
     // Add depth to the bottom of the buttons.
-    //SDL_SetRenderDrawColor( renderer, palette[0].r, palette[0].g, palette[0].b, 255);
-    SDL_SetRenderDrawColor( renderer, 20, 20, 20, 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(3), palette.getG(3), palette.getB(3), 255);
     squareButton.x = ellipseCenter.x - squareButton.w/2;
-    squareButton.y = ellipseCenter.y - squareButton.h/4;   
+    squareButton.y = ellipseCenter.y - squareButton.h/2;   
+
+    // Off set the top of the button in the y coordinates (gives depth
+    // appearance).
+    ellipseCenter.y -= ellipseRadiusH/2;
+    Circle topButtonEllipse(ellipseCenter, ellipseRadiusW, ellipseRadiusH, ellipseColor);
 
     //Render the bottom to the top.
     SDL_RenderDrawRect(renderer, &squareButton);
