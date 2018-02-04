@@ -39,8 +39,8 @@ int main(void) {
   /* Create consoles */
   // give them different initial starting event points.
   int cFirstWidth = 320, cFirstHeight = 540; 
-  Console firstConsole(cFirstWidth, cFirstHeight, WIDTH/2 - (cFirstHeight / 2), 
-                       HEIGHT /2 - (cFirstWidth / 2));
+  Console firstConsole(cFirstWidth, cFirstHeight, WIDTH/2 - (cFirstHeight), 
+                       HEIGHT /2 - (cFirstWidth));
   firstConsole.draw(renderer);
 /*
   int cSecondWidth = 500, cSecondHeight = 300; 

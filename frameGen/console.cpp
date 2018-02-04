@@ -52,7 +52,7 @@ void Console::draw(SDL_Renderer* renderer)
     slantedSurface.y = positionY;
 
     SDL_SetRenderDrawColor( renderer,
-                            palette.getR(2), palette.getG(2), palette.getB(2), 255);
+                            palette.getR(3), palette.getG(3), palette.getB(3), 255);
 
 
 
@@ -80,7 +80,7 @@ void Console::draw(SDL_Renderer* renderer)
         
     /* Buttons */
     float ellipseRadiusW = 10 * widthRatio;
-    float ellipseRadiusH = 10 * heightRatio;
+    float ellipseRadiusH = 9 * heightRatio;
     float buttonSpacing = 5 * heightRatio;    
 
     // The amount of buttons placed will be determined by the size of the
@@ -121,7 +121,8 @@ void Console::draw(SDL_Renderer* renderer)
         // Square Buttons
         while(col < colMax)
         {
-            squareButton.x = positionX + (col * squareButton.w) + (col * buttonSpacing);
+            squareButton.x = positionX + (col * squareButton.w) + (col * buttonSpacing) 
+                             + (widthRatio * 12);
             squareButton.y = positionY + (int)(303 * heightRatio) + (rows * squareButton.h)
                              + (rows * buttonSpacing);
 
