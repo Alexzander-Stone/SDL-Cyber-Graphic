@@ -6,6 +6,7 @@
 #include "star.h"
 #include "button.h"
 #include "lighting.h"
+#include "brick.h"
 //#include "colorPalette.h"
 
 const std::string NAME = "alexzas";
@@ -28,15 +29,9 @@ int main(void) {
   SDL_RenderClear(renderer);
   SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
-  // Create the back layer for drawing. Then draw the back layer. 
-  //BackLayer backLayer(renderer);
-  //backLayer.draw();
-
-/*
-  // Create the front layer for drawing. Then draw the front layer.
-  FrontLayer frontLayer(renderer);
-  frontLayer.draw();
-*/
+  /* Create bricks */
+  Brick brickTest(1000, 500, 200, 200);
+  brickTest.draw(renderer);
 
   /* Create consoles */
   // give them different initial starting event points.
