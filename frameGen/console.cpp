@@ -210,10 +210,11 @@ void Console::draw(SDL_Renderer* renderer)
             // Honeycomb effect achieved by changing starting x position during
             // each second column. 
             int speakerX = console.x + (int)(console.w*.75) + (int)(speakerSpacing * rowSpeakers) 
-                           + (int)(speakerWidth * rowSpeakers) + (colSpeakers%2?1:0 * ((int)(speakerSpacing * rowSpeakers) 
+                           + (int)(speakerWidth * rowSpeakers) 
+                           + (colSpeakers%2?1:0 * ((int)(speakerSpacing * rowSpeakers) 
                            + (int)(speakerWidth * rowSpeakers))+ (int)(8 * widthRatio));
             int speakerY = terminal.y + (int)(5 * heightRatio) + (int)(speakerSpacing * colSpeakers) 
-                           + (int)(speakerWidth * colSpeakers);
+                           + (int)(speakerWidth * colSpeakers) - (int)(terminal.h/2);
             SDL_Point speakerGrillCenter = {speakerX, speakerY}; 
 
             Circle speakerGrill(speakerGrillCenter, speakerWidth, speakerHeight, speakerColor);
