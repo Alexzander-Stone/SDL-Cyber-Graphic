@@ -42,7 +42,7 @@ int main(void) {
   Console firstConsole(cFirstWidth, cFirstHeight, WIDTH/2 - (cFirstHeight), 
                        HEIGHT /2 - (cFirstWidth));
   firstConsole.draw(renderer);
-/*
+
   int cSecondWidth = 500, cSecondHeight = 300; 
   Console secondConsole(cSecondWidth, cSecondHeight, 200, 200);
   secondConsole.draw(renderer);
@@ -51,7 +51,7 @@ int main(void) {
   Console thirdConsole(cThirdWidth, cThirdHeight, 
                        900-cThirdWidth, 500-cThirdHeight);
   thirdConsole.draw(renderer);
-*/
+
 
   /* Circles */ 
   SDL_Point circleCenter = {780, 240};

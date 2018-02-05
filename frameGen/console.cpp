@@ -154,18 +154,14 @@ void Console::draw(SDL_Renderer* renderer)
 
 
     /* Terminals */
-    // Default size created for console. Helps for resizing.
     SDL_Rect terminal;
     
-    float terminalDownsizeX = 100 * widthRatio;
-    float terminalDownsizeY = 100 * heightRatio;
+    float terminalDownsizeW = 100 * widthRatio;
+    float terminalDownsizeH = 100 * heightRatio;
     
-    terminal.w = terminalDownsizeX;
-    terminal.h = terminalDownsizeY;
+    terminal.w = terminalDownsizeW;
+    terminal.h = terminalDownsizeH;
          
-    std::cout << "terminal width: " << terminal.w << "    terminal height: " 
-              << terminal.h << std::endl;
-            
     // Set the color of the rectangle then draw the rectangle to the renderer.
     SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
         
@@ -173,17 +169,10 @@ void Console::draw(SDL_Renderer* renderer)
     // and y. 
     // Border is the pixels between the edge of the console and the terminals.
     // Spacing is the pixels between each edge of the terminals.
-    float terminalBorderX = 10 * widthRatio;
-    float terminalBorderY = 10 * heightRatio;  
-    float terminalSpacingX = (terminalDownsizeX + 10) * widthRatio;
-    float terminalSpacingY = (terminalDownsizeX + 10) * heightRatio;
-    
-        
-    std::cout << "downsize: " << terminalDownsizeX << " and " 
-              << terminalDownsizeY << "    border: " << terminalBorderX 
-              << " and " << terminalBorderY 
-              << "    spacing x and y: " << terminalSpacingX 
-              << " and " << terminalSpacingY << std::endl;
+    float terminalBorderX = terminalDownsizeW / 10;
+    float terminalBorderY = terminalDownsizeH / 10;  
+    float terminalSpacingX = terminalDownsizeW + (10 * widthRatio);
+    float terminalSpacingY = terminalDownsizeH + (10 * heightRatio);
     
     for(int xTransform = 0; xTransform < 2; xTransform++)
     {
@@ -191,16 +180,15 @@ void Console::draw(SDL_Renderer* renderer)
         {
             terminal.x = console.x + terminalBorderX + (terminalSpacingX * xTransform);
             terminal.y = console.y + terminalBorderY + (terminalSpacingY * yTransform);
-            
-            std::cout << "terminal.x : " << terminal.x << " terminal.y : " << terminal.y << " console.y " << console.y << " terminalBorderY" << terminalBorderY  << std::endl;
-
+        
             SDL_RenderDrawRect(renderer, &terminal); 
             SDL_RenderFillRect(renderer, &terminal);
         }
     }
 
     /* Speakers */
-    int speakerWidth = 5 * widthRatio, speakerHeight = 5 * heightRatio, speakerSpacing = 10 * widthRatio;
+    int speakerWidth = 5 * widthRatio, speakerHeight = 5 * heightRatio, 
+        speakerSpacingW = 10 * widthRatio, speakerSpacingY = 10 * heightRatio;
     SDL_Color speakerColor = {palette.getR(0), palette.getG(0), palette.getB(0), 255};
 
     for( int colSpeakers = 0; colSpeakers < 6; colSpeakers++)
@@ -209,11 +197,11 @@ void Console::draw(SDL_Renderer* renderer)
         {
             // Honeycomb effect achieved by changing starting x position during
             // each second column. 
-            int speakerX = console.x + (int)(console.w*.75) + (int)(speakerSpacing * rowSpeakers) 
+            int speakerX = console.x + (int)(console.w*.75) + (int)(speakerSpacingW * rowSpeakers) 
                            + (int)(speakerWidth * rowSpeakers) 
-                           + (colSpeakers%2?1:0 * ((int)(speakerSpacing * rowSpeakers) 
+                           + (colSpeakers%2?1:0 * ((int)(speakerSpacingW * rowSpeakers) 
                            + (int)(speakerWidth * rowSpeakers))+ (int)(8 * widthRatio));
-            int speakerY = terminal.y + (int)(5 * heightRatio) + (int)(speakerSpacing * colSpeakers) 
+            int speakerY = terminal.y + (int)(5 * heightRatio) + (int)(speakerSpacingY * colSpeakers) 
                            + (int)(speakerWidth * colSpeakers) - (int)(terminal.h/2);
             SDL_Point speakerGrillCenter = {speakerX, speakerY}; 
 
@@ -232,7 +220,7 @@ void Console::draw(SDL_Renderer* renderer)
     // Sin wave effect
     BackLayer terminalSinWave(renderer);
     SDL_SetRenderDrawColor(renderer, palette.getR(4), palette.getG(4), palette.getB(4), 255);
-    terminalSinWave.createCosLine(1, terminalDownsizeX/7, terminal.x+(5*widthRatio), terminal.y+(terminalDownsizeY/2));
+    terminalSinWave.createCosLine(1, terminalDownsizeW/7, terminal.x+(5*widthRatio), terminal.y+(terminalDownsizeH/2));
     
     // Star effect
     // Place on top left terminal
