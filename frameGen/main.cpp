@@ -5,11 +5,13 @@
 #include "circle.h"
 #include "star.h"
 #include "button.h"
+#include "lighting.h"
 //#include "colorPalette.h"
 
 const std::string NAME = "alexzas";
 const int WIDTH = 1280;
 const int HEIGHT = 720;
+const int FLOOR_HEIGHT = 100;
 
 int main(void) {
   SDL_Renderer *renderer;
@@ -43,13 +45,13 @@ int main(void) {
                        HEIGHT /2 - (cFirstWidth));
   firstConsole.draw(renderer);
 
-  int cSecondWidth = 500, cSecondHeight = 300; 
-  Console secondConsole(cSecondWidth, cSecondHeight, 200, 200);
+  int cSecondWidth = 320, cSecondHeight = 540; 
+  Console secondConsole(cSecondWidth, cSecondHeight, 0, HEIGHT - cSecondHeight - FLOOR_HEIGHT);
   secondConsole.draw(renderer);
   
-  int cThirdWidth = 200, cThirdHeight = 200; 
+  int cThirdWidth = 540, cThirdHeight = 320; 
   Console thirdConsole(cThirdWidth, cThirdHeight, 
-                       900-cThirdWidth, 500-cThirdHeight);
+                       cSecondWidth, HEIGHT - cThirdHeight - FLOOR_HEIGHT);
   thirdConsole.draw(renderer);
 
 
@@ -62,6 +64,14 @@ int main(void) {
   Circle firstCircle(circleCenter, circleRadiusW, circleRadiusH, circleColor);
   firstCircle.draw(renderer);
 
+  /* Lighting */ 
+  SDL_Point lightingCenter = {780, 240};
+  SDL_Color lightingColor = {255,0,0,255};
+  int lightingRadiusW = 50;
+  int lightingRadiusH = 50;
+
+  Lighting firstLighting(lightingCenter, lightingRadiusW, lightingRadiusH, lightingColor);
+  firstLighting.draw(renderer);
 
   /* Stars */
   SDL_Point starCenter = {700, 240};

@@ -13,7 +13,8 @@ OBJS = \
   circle.o \
   star.o \
   colorPalette.o \
-  button.o 
+  button.o \
+  lighting.o
 
 EXEC = run
 
