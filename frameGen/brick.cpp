@@ -1,5 +1,7 @@
 #include <iostream>
 #include <math.h>
+#include <cstdlib>
+#include <ctime>
 #include "brick.h"
 #include "colorPalette.h"
 
@@ -8,6 +10,7 @@ Brick::Brick( const int posX, const int posY,
             : positionX(posX), positionY(posY), 
               brickW(bW), brickH(bH)
 {
+    srand(time(0));
 }
 
 void Brick::draw(SDL_Renderer* renderer)
@@ -30,7 +33,8 @@ void Brick::draw(SDL_Renderer* renderer)
     SDL_SetRenderDrawColor(renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
     SDL_RenderFillRect(renderer, &brickBackground);
 
-    // Add lines to create the divets in the bricks
+    // Add lines to create the divets in the bricks.
+    // Include the lowlights and highlights for the bricks.
     // -1 is used as an offset
     for(int row = 0; row < 5; row++)
     {
@@ -84,6 +88,18 @@ void Brick::draw(SDL_Renderer* renderer)
             SDL_RenderDrawLine(renderer, lineBeginX, lineBeginY, 
                                lineEndX, lineEndY);
         }
+    }
+    
+    // Dithering, creates roughness and texture on the brick.
+    // Randomly made.
+    for(int numbDithers = 0; numbDithers < 1000; numbDithers++)
+    {
+        int ditherX = positionX + rand()%(brickW-1);
+        int ditherY = positionY + rand()%(brickH-1);
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 
+                               0, rand()%255 + 1);
+        SDL_RenderDrawPoint(renderer, ditherX, ditherY);
     }
     
 
