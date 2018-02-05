@@ -22,6 +22,9 @@ int main(void) {
   SDL_Init(SDL_INIT_VIDEO);
   // C style parameter passing (by value only).
   SDL_CreateWindowAndRenderer( WIDTH, HEIGHT, 0, &window, &renderer );
+  // Turn blending/alpha modes on.
+  SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
 
   // Color to clear the window/canvas with. Use to prevent trails or "acid"
   // trips.
@@ -60,8 +63,8 @@ int main(void) {
   firstCircle.draw(renderer);
 
   /* Lighting */ 
-  SDL_Point lightingCenter = {780, 240};
-  SDL_Color lightingColor = {255,0,0,255};
+  SDL_Point lightingCenter = {900, 500};
+  SDL_Color lightingColor = {255,0,0,2};
   int lightingRadiusW = 50;
   int lightingRadiusH = 50;
 

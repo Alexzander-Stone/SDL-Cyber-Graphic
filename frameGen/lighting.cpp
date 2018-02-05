@@ -18,11 +18,8 @@ void Lighting::draw(SDL_Renderer* renderer)
         float opacityRadiusW = lightingRadiusW * lightingLoop/2;
         float opacityRadiusH = lightingRadiusH * lightingLoop/2;
 
-        SDL_SetRenderDrawColor(renderer, lightingColor.r + (20 * lightingLoop), 
-                lightingColor.g + (20 * lightingLoop), lightingColor.b + (20 * lightingLoop), lightingColor.a);
-       
         SDL_Color portionColor = {(Uint8)(lightingColor.r + (20 * lightingLoop)), (Uint8)(lightingColor.g + (20 * lightingLoop)), 
-                                  (Uint8)(lightingColor.b + (20 * lightingLoop)), (Uint8)(lightingColor.a + (20 * lightingLoop))};
+                                  (Uint8)(lightingColor.b + (20 * lightingLoop)), (Uint8)(lightingColor.a)};
 
         // Use circle to make the lighting.
         Circle lightingPortion(lightingCenter, opacityRadiusW, opacityRadiusH, portionColor);
