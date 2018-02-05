@@ -14,10 +14,10 @@ void Brick::draw(SDL_Renderer* renderer)
 {
 
     ColorPalette palette;
-    palette.addPalette(0, 50, 0); // Brick Background color
-    palette.addPalette(0, 0, 0); // Brick spacing/divet color
-
-
+    palette.addPalette(0, 50, 0); // Brick Background 
+    palette.addPalette(0, 0, 0); // Brick spacing/divet 
+    palette.addPalette(0, 100, 0); // Brick highlight
+    palette.addPalette(0, 20, 0); // Brick shadow/lowlight
 
     // Color in the background of the brick tile
     SDL_Rect brickBackground;
@@ -31,22 +31,48 @@ void Brick::draw(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &brickBackground);
 
     // Add lines to create the divets in the bricks
-    SDL_SetRenderDrawColor(renderer, palette.getR(1), palette.getG(1), palette.getB(1), 255);
-    
-    // Horizontal lines
     // -1 is used as an offset
     for(int row = 0; row < 5; row++)
     {
+        // Horizontal lines
         int lineBeginX = positionX;
-        int lineBeginY = positionY + (row * (brickH / 5));
+        int lineBeginY = positionY + (int)(row * (brickH / 5));
         int lineEndX = lineBeginX + brickW - 1;
         int lineEndY = lineBeginY;
-
-        // Render horizontal lines
+        
+        SDL_SetRenderDrawColor(renderer, palette.getR(1), palette.getG(1), 
+                               palette.getB(1), 255);
         SDL_RenderDrawLine(renderer, lineBeginX, lineBeginY, 
                            lineEndX, lineEndY);
+        
+        // Add a highlight to the bottom of each line and shadow
+        // to the top of each line to give depth.
+        // Give the highlight thickness/width.
+        for(int depthThickness = 1; depthThickness < 3; depthThickness++)
+        {
+            // Highlight
+            int depthBeginY = lineBeginY + depthThickness;
+            int depthEndY = depthBeginY;
+
+            SDL_SetRenderDrawColor(renderer, palette.getR(2), palette.getG(2), 
+                               palette.getB(2), 155);
+            SDL_RenderDrawLine(renderer, lineBeginX, depthBeginY, 
+                               lineEndX, depthEndY);
+
+            // Shadow/low light
+            depthBeginY = lineBeginY - depthThickness;
+            depthEndY = depthBeginY;
+
+            SDL_SetRenderDrawColor(renderer, palette.getR(3), palette.getG(3), 
+                               palette.getB(3), 155);
+            SDL_RenderDrawLine(renderer, lineBeginX, depthBeginY, 
+                               lineEndX, depthEndY);
+        }
+
 
         // Vertical lines
+        SDL_SetRenderDrawColor(renderer, palette.getR(1), palette.getG(1), 
+                               palette.getB(1), 255);
         for(int col = 0; col < 2; col++)
         {
             // Alternate each line location (similar to honeycomb effect).
@@ -55,7 +81,6 @@ void Brick::draw(SDL_Renderer* renderer)
             lineEndX = lineBeginX;
             lineEndY = lineBeginY + (brickH/5) - 1;
         
-            // Render vertical lines
             SDL_RenderDrawLine(renderer, lineBeginX, lineBeginY, 
                                lineEndX, lineEndY);
         }
