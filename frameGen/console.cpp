@@ -200,12 +200,24 @@ void Console::draw(SDL_Renderer* renderer)
     }
 
     /* Speakers */
-    for( int colSpeakers = 0; colSpeakers < 10; colSpeakers++)
+    int speakerWidth = 5 * widthRatio, speakerHeight = 5 * heightRatio, speakerSpacing = 10 * widthRatio;
+    SDL_Color speakerColor = {palette.getR(0), palette.getG(0), palette.getB(0), 255};
+
+    for( int colSpeakers = 0; colSpeakers < 6; colSpeakers++)
     {
-        for(int rowSpeakers = 0; rowSpeakers < 10; rowSpeakers++)
+        for(int rowSpeakers = 0; rowSpeakers < 5; rowSpeakers++)
         {
-            SDL_Point speakerGrillCenter = {console.x + console.w, terminal.y}; 
-            Circle speakerGrill();
+            // Honeycomb effect achieved by changing starting x position during
+            // each second column. 
+            int speakerX = console.x + (int)(console.w*.75) + (int)(speakerSpacing * rowSpeakers) 
+                           + (int)(speakerWidth * rowSpeakers) + (colSpeakers%2?1:0 * ((int)(speakerSpacing * rowSpeakers) 
+                           + (int)(speakerWidth * rowSpeakers))+ (int)(8 * widthRatio));
+            int speakerY = terminal.y + (int)(5 * heightRatio) + (int)(speakerSpacing * colSpeakers) 
+                           + (int)(speakerWidth * colSpeakers);
+            SDL_Point speakerGrillCenter = {speakerX, speakerY}; 
+
+            Circle speakerGrill(speakerGrillCenter, speakerWidth, speakerHeight, speakerColor);
+            speakerGrill.draw(renderer);
 
 
 
