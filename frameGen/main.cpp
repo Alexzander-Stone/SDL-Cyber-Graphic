@@ -54,7 +54,7 @@ int main(void) {
 */
 
   /* Circles */ 
-  SDL_Point circleCenter = {320, 240};
+  SDL_Point circleCenter = {780, 240};
   SDL_Color circleColor = {255,0,0,255};
   int circleRadiusW = 50;
   int circleRadiusH = 50;

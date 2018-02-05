@@ -3,6 +3,8 @@
 #include "console.h"
 #include "circle.h"
 #include "button.h"
+#include "backLayer.h"
+#include "star.h"
 //#include "colorPalette.h"
 
 Console::Console(const int cWidth, const int cHeight, const int posX, const int posY) 
@@ -15,7 +17,7 @@ void Console::draw(SDL_Renderer* renderer)
     ColorPalette palette;
     palette.addPalette(1, 13, 33); // Background
     palette.addPalette(1, 18, 45); // Detail (Button)
-    palette.addPalette(2, 25, 65); // Detail (Console Base)
+    palette.addPalette(2, 34, 85); // Detail (Console Base)
     palette.addPalette(1, 48, 128); // Highlight (Slants)
     palette.addPalette(0, 94, 255); // Super Bright
 
@@ -38,9 +40,6 @@ void Console::draw(SDL_Renderer* renderer)
                             palette.getG(2), palette.getB(2), 255); 
     SDL_RenderDrawRect(renderer, &console);
     SDL_RenderFillRect( renderer, &console );    
-
-    
-
 
     //Slanted surfaces
     SDL_Rect slantedSurface;
@@ -67,10 +66,10 @@ void Console::draw(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &slantedSurface);
     
     // Slant at middle of console.
-    slantedSurface.w = 200 * widthRatio;
-    slantedSurface.h = 50 * heightRatio;
+    slantedSurface.w = consoleWidth;//200 * widthRatio;
+    slantedSurface.h = 100 * heightRatio;
     slantedSurface.x = positionX;
-    slantedSurface.y = positionY + (300 * heightRatio);
+    slantedSurface.y = positionY + (250 * heightRatio);
     
     SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
     SDL_RenderDrawRect(renderer, &slantedSurface);
@@ -95,7 +94,7 @@ void Console::draw(SDL_Renderer* renderer)
     squareButton.h = 18 * heightRatio;
 
 
-    for (int rows = 0; rows <= 1; rows++)
+    for (int rows = 0; rows <= 2; rows++)
     {
         int col = 0;
 
@@ -104,8 +103,8 @@ void Console::draw(SDL_Renderer* renderer)
         {
             
             SDL_Point buttonCenter = {(int)(positionX + (col * ellipseRadiusW*2) 
-                                      + ellipseRadiusW + (col * buttonSpacing)), 
-                                      (int)(positionY + (int)(300 * heightRatio) 
+                                      + ellipseRadiusW + (col * buttonSpacing)) + (int)(5 * widthRatio), 
+                                      (int)(positionY + (int)(250 * heightRatio) 
                                       + ellipseRadiusH + (rows * ellipseRadiusH*2) 
                                       + (rows * buttonSpacing))};
             std::cout << "positionx: " << positionX << " ellipseRadiusW: " 
@@ -122,8 +121,8 @@ void Console::draw(SDL_Renderer* renderer)
         while(col < colMax)
         {
             squareButton.x = positionX + (col * squareButton.w) + (col * buttonSpacing) 
-                             + (widthRatio * 12);
-            squareButton.y = positionY + (int)(303 * heightRatio) + (rows * squareButton.h)
+                             + (widthRatio * 30);
+            squareButton.y = positionY + (int)(253 * heightRatio) + (rows * squareButton.h)
                              + (rows * buttonSpacing);
 
             SDL_RenderDrawRect(renderer, &squareButton);
@@ -132,13 +131,34 @@ void Console::draw(SDL_Renderer* renderer)
             col++;
         }
     }
-        
+
+    // Space bar
+    int spaceBarOffsetX = 10 * widthRatio;
+    squareButton.x = slantedSurface.x + spaceBarOffsetX;
+    squareButton.y = slantedSurface.y + (slantedSurface.h*.75);
+    squareButton.w = consoleWidth - spaceBarOffsetX*2;
+    
+    // render space marines.
+    SDL_RenderDrawRect(renderer, &squareButton);
+    SDL_RenderFillRect(renderer, &squareButton);
+    
+    // Space bar depth
+    squareButton.x = slantedSurface.x + spaceBarOffsetX;
+    squareButton.y = slantedSurface.y + (slantedSurface.h*.75) + squareButton.h/2;
+    squareButton.w = consoleWidth - spaceBarOffsetX*2;
+    squareButton.h = 5 * heightRatio;
+    
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_RenderDrawRect(renderer, &squareButton);
+    SDL_RenderFillRect(renderer, &squareButton);
+
+
     /* Terminals */
     // Default size created for console. Helps for resizing.
     SDL_Rect terminal;
     
-    float terminalDownsizeX = 50 * widthRatio;
-    float terminalDownsizeY = 50 * heightRatio;
+    float terminalDownsizeX = 100 * widthRatio;
+    float terminalDownsizeY = 100 * heightRatio;
     
     terminal.w = terminalDownsizeX;
     terminal.h = terminalDownsizeY;
@@ -154,9 +174,9 @@ void Console::draw(SDL_Renderer* renderer)
     // Border is the pixels between the edge of the console and the terminals.
     // Spacing is the pixels between each edge of the terminals.
     float terminalBorderX = 10 * widthRatio;
-    float terminalBorderY = 10 * heightRatio; 
-    float terminalSpacingX = 65 * widthRatio;
-    float terminalSpacingY = 65 * heightRatio;
+    float terminalBorderY = 10 * heightRatio;  
+    float terminalSpacingX = (terminalDownsizeX + 10) * widthRatio;
+    float terminalSpacingY = (terminalDownsizeX + 10) * heightRatio;
     
         
     std::cout << "downsize: " << terminalDownsizeX << " and " 
@@ -171,11 +191,44 @@ void Console::draw(SDL_Renderer* renderer)
         {
             terminal.x = console.x + terminalBorderX + (terminalSpacingX * xTransform);
             terminal.y = console.y + terminalBorderY + (terminalSpacingY * yTransform);
-                     
+            
+            std::cout << "terminal.x : " << terminal.x << " terminal.y : " << terminal.y << " console.y " << console.y << " terminalBorderY" << terminalBorderY  << std::endl;
+
             SDL_RenderDrawRect(renderer, &terminal); 
             SDL_RenderFillRect(renderer, &terminal);
         }
     }
+
+    /* Speakers */
+    for( int colSpeakers = 0; colSpeakers < 10; colSpeakers++)
+    {
+        for(int rowSpeakers = 0; rowSpeakers < 10; rowSpeakers++)
+        {
+            SDL_Point speakerGrillCenter = {console.x + console.w, terminal.y}; 
+            Circle speakerGrill();
+
+
+
+
+        }
+    }
+
+
+    /* Special effects on terminals */
+    
+    // Sin wave effect
+    BackLayer terminalSinWave(renderer);
+    SDL_SetRenderDrawColor(renderer, palette.getR(4), palette.getG(4), palette.getB(4), 255);
+    terminalSinWave.createCosLine(1, terminalDownsizeX/7, terminal.x+(5*widthRatio), terminal.y+(terminalDownsizeY/2));
+    
+    // Star effect
+    // Place on top left terminal
+    int starWidth = 50 * widthRatio;
+    int starHeight = 50 * heightRatio;
+    SDL_Point starPoint= {(int)(terminal.x - terminalSpacingX/2)-(int)(5*widthRatio), (int)(terminal.y - terminalSpacingY/2)-(int)(5*heightRatio)};
+    SDL_Color starColor = {palette.getR(4), palette.getG(4), palette.getB(4), 255};
+    Star terminalStar(starPoint, starWidth, starHeight, starColor); 
+    terminalStar.draw(renderer);
 
     /* Drawers */
     SDL_Rect drawer;
