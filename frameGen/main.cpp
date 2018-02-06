@@ -8,6 +8,7 @@
 #include "lighting.h"
 #include "brick.h"
 #include "trim.h"
+#include "window.h"
 
 const std::string NAME = "alexzas";
 const int WIDTH = 1280;
@@ -49,6 +50,11 @@ int main(void) {
   Trim trimBackground(0, HEIGHT - FLOOR_HEIGHT, WIDTH, FLOOR_HEIGHT);
   trimBackground.draw(renderer);
 
+  /* Create window in background */
+  Window windowBackground(700, 200, 500, 300);
+  windowBackground.draw(renderer);
+
+  
 
   /* Create consoles */
   // give them different initial starting event points.
