@@ -17,10 +17,10 @@ void Brick::draw(SDL_Renderer* renderer)
 {
 
     ColorPalette palette;
-    palette.addPalette(0, 50, 0); // Brick Background 
+    palette.addPalette(41, 4, 99); // Brick Background 
     palette.addPalette(0, 0, 0); // Brick spacing/divet 
-    palette.addPalette(0, 100, 0); // Brick highlight
-    palette.addPalette(0, 20, 0); // Brick shadow/lowlight
+    palette.addPalette(0, 0, 100); // Brick highlight
+    palette.addPalette(0, 0, 20); // Brick shadow/lowlight
 
     // Color in the background of the brick tile
     SDL_Rect brickBackground;
