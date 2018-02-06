@@ -23,7 +23,7 @@ int main(void) {
   // C style parameter passing (by value only).
   SDL_CreateWindowAndRenderer( WIDTH, HEIGHT, 0, &window, &renderer );
   // Turn blending/alpha modes on.
-  //SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+  SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
 
   // Color to clear the window/canvas with. Use to prevent trails or "acid"
@@ -79,9 +79,9 @@ int main(void) {
 
   /* Lighting */ 
   SDL_Point lightingCenter = {900, 500};
-  SDL_Color lightingColor = {255,0,0,2};
-  int lightingRadiusW = 50;
-  int lightingRadiusH = 50;
+  SDL_Color lightingColor = {216, 144, 49, 5};
+  int lightingRadiusW = 10;
+  int lightingRadiusH = 10;
 
   Lighting firstLighting(lightingCenter, lightingRadiusW, lightingRadiusH, lightingColor);
   firstLighting.draw(renderer);

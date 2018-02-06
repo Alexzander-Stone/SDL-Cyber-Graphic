@@ -13,7 +13,9 @@ void Circle::draw(SDL_Renderer* renderer)
     int squaredRadW = circleRadiusW * circleRadiusW;
     int squaredRadH = circleRadiusH * circleRadiusH;
     // Draw circles
-    SDL_SetRenderDrawColor(renderer, circleColor.r, circleColor.g, circleColor.b, circleColor.a);
+    SDL_SetRenderDrawColor( renderer, 
+                            circleColor.r, circleColor.g, 
+                            circleColor.b, circleColor.a );
     for(float w = 0; w < circleRadiusW * 2; w+=.1)
     {
         for(float h = 0; h < circleRadiusH * 2; h+=.1)

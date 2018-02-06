@@ -11,20 +11,28 @@ Lighting::Lighting(const SDL_Point center, const int radiusW, const int radiusH,
 
 void Lighting::draw(SDL_Renderer* renderer)
 {
+    int totalCircles = 6;
     // Draw lightings of varying opacity, (start with largest lighting w/ least
     // opacity and continue making smaller lightings with higher opacities).
-    for(int lightingLoop = 4; lightingLoop > 0; lightingLoop--)
+    for(int lightingLoop = totalCircles; lightingLoop > 0; lightingLoop--)
     {
-        float opacityRadiusW = lightingRadiusW * lightingLoop/2;
-        float opacityRadiusH = lightingRadiusH * lightingLoop/2;
+        float opacityRadiusW = lightingRadiusW * ((lightingLoop-totalCircles)*2.0) * -1;
+        float opacityRadiusH = lightingRadiusH * ((lightingLoop-totalCircles)*2.0) * -1;
 
-        SDL_Color portionColor = {(Uint8)(lightingColor.r + (20 * lightingLoop)), (Uint8)(lightingColor.g + (20 * lightingLoop)), 
-                                  (Uint8)(lightingColor.b + (20 * lightingLoop)), (Uint8)(lightingColor.a)};
+        std::cout << "opacity w is = " << opacityRadiusW << " and opacity h is = " << opacityRadiusH << std::endl;
+
+        SDL_Color portionColor = { (Uint8)(lightingColor.r ), 
+                                   (Uint8)(lightingColor.g ), 
+                                   (Uint8)(lightingColor.b ), 
+                                   (Uint8)(lightingColor.a + lightingLoop) };
+
+        // Change tint of lightingColor
+        lightingColor.r *= .75;
+        lightingColor.g *= .75;
+        lightingColor.b *= .75;
 
         // Use circle to make the lighting.
         Circle lightingPortion(lightingCenter, opacityRadiusW, opacityRadiusH, portionColor);
         lightingPortion.draw(renderer);
-
-
     }
 }
