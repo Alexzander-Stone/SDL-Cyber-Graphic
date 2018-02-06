@@ -3,9 +3,9 @@
 #include <cstdlib>
 #include <ctime>
 #include "window.h"
-#include "colorPalette.h"
 #include "brick.h"
 #include "star.h"
+#include "button.h"
 
 Window::Window(const int posX, const int posY, const int windowW, const int windowH)
               : positionX(posX), positionY(posY), 
@@ -19,6 +19,9 @@ void Window::draw(SDL_Renderer* renderer)
     ColorPalette palette;
     palette.addPalette(0, 0, 0); // Black background
     palette.addPalette(244, 252, 126); // Star color
+    palette.addPalette(0, 0, 0); // Button rect
+    palette.addPalette(60, 60, 60); // Bottom curtain
+    palette.addPalette(120, 120, 120); // Top curtain 
 
     // Background of window, clear black.
     SDL_Rect windowBackground;
@@ -50,15 +53,6 @@ void Window::draw(SDL_Renderer* renderer)
     /* Trimming */
     int trimSpacing = 10;
 
-    // Left and right trimming of window.
-    for( int totalVertTrim = 0; totalVertTrim < 2; totalVertTrim++)
-    {
-        int trimX = positionX - trimSpacing + (width * totalVertTrim);
-        int trimY = positionY;
-
-        Brick trimBrick(trimX, trimY, trimSpacing, height);
-        trimBrick.draw(renderer);
-    }
     // Top and bottom trimming of window.
     for( int totalHoriTrim = 0; totalHoriTrim < 2; totalHoriTrim++)
     {
@@ -69,5 +63,21 @@ void Window::draw(SDL_Renderer* renderer)
         trimBrick.draw(renderer);
     }
 
-     
+    // Left and right trimming of window.
+    SDL_Rect buttonRect;
+    buttonRect.w = 10;
+    buttonRect.h = 10;
+
+    for( int totalVertTrim = 0; totalVertTrim < 2; totalVertTrim++)
+    {
+        int trimX = positionX - trimSpacing+5 + (width * totalVertTrim);
+        int trimY = positionY;
+
+        SDL_Point buttonLocation = {trimX, trimY + height/2};
+
+        Button trimButton(trimSpacing-5, height/2,
+                          buttonLocation, buttonRect,
+                          palette);
+        trimButton.draw(renderer);
+    } 
 }
