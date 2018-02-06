@@ -132,7 +132,7 @@ void BackLayer::createSinLine(int curvesToRepeat, int lengthOfCurve,
     for(int i = 0; i < curvesToRepeat; i++)
     {
         // Distortion angle is actually radians.
-        float distortionAngle = PI/2;
+        float distortionAngle = PI*2;
 
         for(float theta = 0; theta < 2*PI; theta+=.001)
         {
