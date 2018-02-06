@@ -2,8 +2,8 @@
 #include "circle.h"
 #include "button.h"
 
-Button::Button(const int eRadiusW, const int eRadiusH, 
-               const SDL_Point center, const SDL_Rect sqrRect,
+Button::Button(const int eRadiusW, const int eRadiusH,  
+               const SDL_Point center, SDL_Rect sqrRect,
                const ColorPalette pal)
               : ellipseRadiusW(eRadiusW), ellipseRadiusH(eRadiusH), 
               ellipseCenter(center), squareButton(sqrRect), 

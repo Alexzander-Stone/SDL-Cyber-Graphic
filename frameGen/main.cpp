@@ -7,12 +7,12 @@
 #include "button.h"
 #include "lighting.h"
 #include "brick.h"
-//#include "colorPalette.h"
+#include "trim.h"
 
 const std::string NAME = "alexzas";
 const int WIDTH = 1280;
 const int HEIGHT = 720;
-const int FLOOR_HEIGHT = 100;
+const int FLOOR_HEIGHT = 20;
 
 int main(void) {
   SDL_Renderer *renderer;
@@ -23,7 +23,7 @@ int main(void) {
   // C style parameter passing (by value only).
   SDL_CreateWindowAndRenderer( WIDTH, HEIGHT, 0, &window, &renderer );
   // Turn blending/alpha modes on.
-  SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+  //SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
 
   // Color to clear the window/canvas with. Use to prevent trails or "acid"
@@ -32,17 +32,32 @@ int main(void) {
   SDL_RenderClear(renderer);
   SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
-  /* Create bricks */
-  Brick brickTest(1000, 500, 200, 200);
-  brickTest.draw(renderer);
+  /* Create bricks for background */
+  int brickWidth = 200, brickHeight = 200;
+  int totalBrickW = WIDTH / brickWidth + 1, totalBrickH = HEIGHT / brickHeight + 1; // Set size to fit on screen.
+  for(int currentX = 0; currentX < totalBrickW; currentX++)
+  {
+      for(int currentY = 0; currentY < totalBrickH; currentY++)
+      {
+          Brick brickBackground((currentX*brickWidth), (currentY*brickHeight), 
+                                brickWidth, brickHeight);
+          brickBackground.draw(renderer);
+      }
+  }
+
+  /* Create trimming on background */
+  Trim trimBackground(0, HEIGHT - FLOOR_HEIGHT, WIDTH, FLOOR_HEIGHT);
+  trimBackground.draw(renderer);
+
 
   /* Create consoles */
   // give them different initial starting event points.
   int cFirstWidth = 320, cFirstHeight = 540; 
-  Console firstConsole(cFirstWidth, cFirstHeight, WIDTH/2 - (cFirstHeight), 
-                       HEIGHT /2 - (cFirstWidth));
+  Console firstConsole(cFirstWidth, cFirstHeight, 10, 
+                       HEIGHT - (cFirstHeight)-8);
   firstConsole.draw(renderer);
 
+  /*
   int cSecondWidth = 320, cSecondHeight = 540; 
   Console secondConsole(cSecondWidth, cSecondHeight, 0, HEIGHT - cSecondHeight - FLOOR_HEIGHT);
   secondConsole.draw(renderer);
@@ -51,7 +66,7 @@ int main(void) {
   Console thirdConsole(cThirdWidth, cThirdHeight, 
                        cSecondWidth, HEIGHT - cThirdHeight - FLOOR_HEIGHT);
   thirdConsole.draw(renderer);
-
+  */
 
   /* Circles */ 
   SDL_Point circleCenter = {780, 240};

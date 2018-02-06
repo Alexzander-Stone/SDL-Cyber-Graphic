@@ -31,17 +31,17 @@ void Brick::draw(SDL_Renderer* renderer)
     brickBackground.y = positionY;
 
     SDL_SetRenderDrawColor(renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_RenderDrawRect(renderer, &brickBackground);
     SDL_RenderFillRect(renderer, &brickBackground);
 
     // Add lines to create the divets in the bricks.
     // Include the lowlights and highlights for the bricks.
-    // -1 is used as an offset
-    for(int row = 0; row < 5; row++)
+    for(int row = 0; row < 4; row++)
     {
         // Horizontal lines
         int lineBeginX = positionX;
-        int lineBeginY = positionY + (int)(row * (brickH / 5));
-        int lineEndX = lineBeginX + brickW - 1;
+        int lineBeginY = positionY + (row * (brickH / 4));
+        int lineEndX = lineBeginX + brickW;
         int lineEndY = lineBeginY;
         
         SDL_SetRenderDrawColor(renderer, palette.getR(1), palette.getG(1), 
@@ -81,9 +81,9 @@ void Brick::draw(SDL_Renderer* renderer)
         {
             // Alternate each line location (similar to honeycomb effect).
             lineBeginX = positionX + (brickH *.25) + (col * brickH * .5) 
-                         + (row%2?0:1 * (brickH * .25)) - 1;
+                         + (row%2?0:1 * (brickH * .25));
             lineEndX = lineBeginX;
-            lineEndY = lineBeginY + (brickH/5) - 1;
+            lineEndY = lineBeginY + (brickH/4);
         
             SDL_RenderDrawLine(renderer, lineBeginX, lineBeginY, 
                                lineEndX, lineEndY);
@@ -94,8 +94,8 @@ void Brick::draw(SDL_Renderer* renderer)
     // Randomly made.
     for(int numbDithers = 0; numbDithers < 1000; numbDithers++)
     {
-        int ditherX = positionX + rand()%(brickW-1);
-        int ditherY = positionY + rand()%(brickH-1);
+        int ditherX = positionX + rand()%(brickW);
+        int ditherY = positionY + rand()%(brickH);
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 
                                0, rand()%255 + 1);

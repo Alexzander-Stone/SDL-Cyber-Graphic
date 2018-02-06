@@ -15,7 +15,8 @@ OBJS = \
   colorPalette.o \
   button.o \
   lighting.o \
-  brick.o
+  brick.o \
+  trim.o
 
 EXEC = run
 
