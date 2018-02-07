@@ -1,18 +1,15 @@
-// Color palette for the console. Goes from darkest to brightest values.
 #include <vector>
 #include <SDL.h>
 
 class ColorPalette
 {
     public:
-        
         // Default
         ColorPalette();
         // Conversion (r,g,b)
         ColorPalette(const Uint8, const Uint8, const Uint8); 
         // Copy
         ColorPalette(const ColorPalette&);
-
 
         Uint8 getR(const int) const;
         Uint8 getG(const int) const;

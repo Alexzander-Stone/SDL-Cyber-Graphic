@@ -21,7 +21,7 @@ void Console::draw(SDL_Renderer* renderer)
     palette.addPalette(0, 94, 255); // Super Bright
 
     /* Sizing Ratio */
-    float widthRatio = (consoleWidth / 320.0), heightRatio = (consoleHeight / 540.0);
+    float widthRatio = consoleWidth / 320.0, heightRatio = consoleHeight / 540.0;
 
     /* Console base */
 
@@ -34,13 +34,12 @@ void Console::draw(SDL_Renderer* renderer)
     console.x = positionX;
     console.y = positionY;
 
-    // Set the color of the console and draw to the canvas.
     SDL_SetRenderDrawColor( renderer, palette.getR(2), 
                             palette.getG(2), palette.getB(2), 255); 
     SDL_RenderDrawRect(renderer, &console);
-    SDL_RenderFillRect( renderer, &console );    
+    SDL_RenderFillRect(renderer, &console);    
 
-    //Slanted surfaces
+    /* Slanted surfaces */
     SDL_Rect slantedSurface;
 
     // Slant at top of console.
@@ -49,29 +48,26 @@ void Console::draw(SDL_Renderer* renderer)
     slantedSurface.x = positionX;
     slantedSurface.y = positionY;
 
-    SDL_SetRenderDrawColor( renderer,
-                            palette.getR(3), palette.getG(3), palette.getB(3), 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(3), palette.getG(3), 
+                            palette.getB(3), 255 );
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
 
     // Dark slant at bottom of console.
     slantedSurface.y = positionY + consoleHeight;
     
-    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), 
+                            palette.getB(0), 255 );
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
     
     // Slant at middle of console.
-    slantedSurface.w = consoleWidth;//200 * widthRatio;
     slantedSurface.h = 100 * heightRatio;
-    slantedSurface.x = positionX;
     slantedSurface.y = positionY + (250 * heightRatio);
     
     SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
     SDL_RenderDrawRect(renderer, &slantedSurface);
-    SDL_RenderFillRect(renderer, &slantedSurface);
-       
-        
+    SDL_RenderFillRect(renderer, &slantedSurface);   
         
     /* Buttons */
     float ellipseRadiusW = 10 * widthRatio;
@@ -79,7 +75,7 @@ void Console::draw(SDL_Renderer* renderer)
     float buttonSpacing = 5 * heightRatio;    
 
     // The amount of buttons placed will be determined by the size of the
-    // canvas it's sitting on (width).
+    // canvas/slanted surface it's sitting on (width).
     int colMax = slantedSurface.w / (ellipseRadiusW*2 + buttonSpacing);
 
     // Square button setup.
@@ -90,6 +86,7 @@ void Console::draw(SDL_Renderer* renderer)
     squareButton.h = 18 * heightRatio;
 
 
+    // Create three rows of buttons.
     for (int rows = 0; rows <= 2; rows++)
     {
         int col = 0;
@@ -98,29 +95,30 @@ void Console::draw(SDL_Renderer* renderer)
         for (col = 0; col < colMax-3; col++)
         {
             
-            SDL_Point buttonCenter = {(int)(positionX + (col * ellipseRadiusW*2) 
-                                      + ellipseRadiusW + (col * buttonSpacing)) + (int)(5 * widthRatio), 
-                                      (int)(positionY + (int)(250 * heightRatio) 
-                                      + ellipseRadiusH + (rows * ellipseRadiusH*2) 
-                                      + (rows * buttonSpacing))};
+            SDL_Point buttonCenter = { (int)(positionX + (col * ellipseRadiusW*2) 
+                                       + ellipseRadiusW + (col * buttonSpacing)) 
+                                       + (int)(5 * widthRatio), 
+                                       (int)(positionY + (int)(250 * heightRatio) 
+                                       + ellipseRadiusH + (rows * ellipseRadiusH*2) 
+                                       + (rows * buttonSpacing)) };
 
-            Button consoleButton(ellipseRadiusW, ellipseRadiusH, 
-                                 buttonCenter, squareButton, 
-                                 palette);
+            Button consoleButton( ellipseRadiusW, ellipseRadiusH, 
+                                  buttonCenter, squareButton, 
+                                  palette );
             consoleButton.draw(renderer);
         }
 
         // Square Buttons
         while(col < colMax)
         {
-            squareButton.x = positionX + (col * squareButton.w) + (col * buttonSpacing) 
-                             + (widthRatio * 30);
-            squareButton.y = positionY + (int)(253 * heightRatio) + (rows * squareButton.h)
-                             + (rows * buttonSpacing);
+            squareButton.x = positionX + (col * squareButton.w) 
+                             + (col * buttonSpacing) + (widthRatio * 30);
+            squareButton.y = positionY + (int)(253 * heightRatio) 
+                             + (rows * squareButton.h) + (rows * buttonSpacing);
 
             SDL_RenderDrawRect(renderer, &squareButton);
             SDL_RenderFillRect(renderer, &squareButton);
-
+            
             col++;
         }
     }
@@ -140,10 +138,10 @@ void Console::draw(SDL_Renderer* renderer)
     squareButton.w = consoleWidth - spaceBarOffsetX*2;
     squareButton.h = 5 * heightRatio;
     
-    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), 
+                            palette.getB(0), 255);
     SDL_RenderDrawRect(renderer, &squareButton);
     SDL_RenderFillRect(renderer, &squareButton);
-
 
     /* Terminals */
     SDL_Rect terminal;
@@ -179,8 +177,8 @@ void Console::draw(SDL_Renderer* renderer)
     }
 
     /* Speakers */
-    int speakerWidth = 5 * widthRatio, speakerHeight = 5 * heightRatio, 
-        speakerSpacingW = 10 * widthRatio, speakerSpacingY = 10 * heightRatio;
+    int speakerWidth = 5 * widthRatio, speakerHeight = 5 * heightRatio; 
+    int speakerSpacingW = 10 * widthRatio, speakerSpacingY = 10 * heightRatio;
     SDL_Color speakerColor = {palette.getR(0), palette.getG(0), palette.getB(0), 255};
 
     for( int colSpeakers = 0; colSpeakers < 6; colSpeakers++)
@@ -195,35 +193,35 @@ void Console::draw(SDL_Renderer* renderer)
                            + (int)(speakerWidth * rowSpeakers))+ (int)(8 * widthRatio));
             int speakerY = terminal.y + (int)(5 * heightRatio) + (int)(speakerSpacingY * colSpeakers) 
                            + (int)(speakerWidth * colSpeakers) - (int)(terminal.h/2);
+            
             SDL_Point speakerGrillCenter = {speakerX, speakerY}; 
 
-            Circle speakerGrill(speakerGrillCenter, speakerWidth, speakerHeight, speakerColor);
+            Circle speakerGrill( speakerGrillCenter, speakerWidth, speakerHeight, 
+                                 speakerColor );
             speakerGrill.draw(renderer);
-
-
-
-
         }
     }
 
 
-    /* Special effects on terminals */
+    /* Special effects on terminals. */
     
-    // Sin wave effect
+    // Sin wave effect.
     Line terminalSinWave(renderer);
-    SDL_SetRenderDrawColor(renderer, palette.getR(4), palette.getG(4), palette.getB(4), 255);
-    terminalSinWave.drawCosLine(1, terminalDownsizeW/7, terminal.x+(5*widthRatio), terminal.y+(terminalDownsizeH/2));
+    SDL_SetRenderDrawColor( renderer, palette.getR(4), palette.getG(4), 
+                            palette.getB(4), 255 );
+    terminalSinWave.drawCosLine(1, terminalDownsizeW/7, terminal.x+(5*widthRatio), 
+                                terminal.y+(terminalDownsizeH/2));
     
-    // Star effect
-    // Place on top left terminal
+    // Star effect on top left terminal.
     int starWidth = 50 * widthRatio;
     int starHeight = 50 * heightRatio;
-    SDL_Point starPoint= {(int)(terminal.x - terminalSpacingX/2)-(int)(5*widthRatio), (int)(terminal.y - terminalSpacingY/2)-(int)(5*heightRatio)};
+    SDL_Point starPoint= { (int)(terminal.x - terminalSpacingX/2)-(int)(5*widthRatio), 
+                           (int)(terminal.y - terminalSpacingY/2)-(int)(5*heightRatio) };
     SDL_Color starColor = {palette.getR(4), palette.getG(4), palette.getB(4), 255};
     Star terminalStar(starPoint, starWidth, starHeight, starColor); 
     terminalStar.draw(renderer);
 
-    /* Drawers */
+    /* Drawers. */
     SDL_Rect drawer;
     
     float drawerDownsizeWidth = 80 * widthRatio;
@@ -242,7 +240,8 @@ void Console::draw(SDL_Renderer* renderer)
                    + (numbDrawers * drawerSpacing);
         drawer.x = positionX + (20 * widthRatio);
 
-        SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+        SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), 
+                                palette.getB(0), 255 );
         SDL_RenderDrawRect(renderer, &drawer); 
         SDL_RenderFillRect(renderer, &drawer);
 
@@ -252,7 +251,8 @@ void Console::draw(SDL_Renderer* renderer)
         drawer.y += drawerRimOffsetHeight/2;
         drawer.x += drawerRimOffsetWidth/2;
 
-        SDL_SetRenderDrawColor( renderer, palette.getR(2), palette.getG(2), palette.getB(2), 255);
+        SDL_SetRenderDrawColor( renderer, palette.getR(2), palette.getG(2), 
+                                palette.getB(2), 255 );
         SDL_RenderDrawRect(renderer, &drawer); 
         SDL_RenderFillRect(renderer, &drawer);
 
@@ -262,7 +262,8 @@ void Console::draw(SDL_Renderer* renderer)
         drawer.x += 45 * widthRatio;
         drawer.y += 10 * heightRatio;
 
-        SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+        SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), 
+                                palette.getB(0), 255 );
         SDL_RenderDrawRect(renderer, &drawer); 
         SDL_RenderFillRect(renderer, &drawer);
     }
@@ -273,27 +274,30 @@ void Console::draw(SDL_Renderer* renderer)
     drawer.x = positionX + (150 * widthRatio);
     drawer.y = positionY + (360 * heightRatio);
     
-    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), 
+                            palette.getB(0), 255 );
     SDL_RenderDrawRect(renderer, &drawer); 
     SDL_RenderFillRect(renderer, &drawer);
     
-    // Inside of drawer 
+    // Inside of large drawer 
     drawer.w -= drawerRimOffsetWidth;
     drawer.h -= drawerRimOffsetHeight;
     drawer.y += drawerRimOffsetHeight/2;
     drawer.x += drawerRimOffsetWidth/2;
 
-    SDL_SetRenderDrawColor( renderer, palette.getR(2), palette.getG(2), palette.getB(2), 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(2), palette.getG(2), 
+                            palette.getB(2), 255 );
     SDL_RenderDrawRect(renderer, &drawer); 
     SDL_RenderFillRect(renderer, &drawer);
 
-    // Handle of drawer
+    // Handle of large drawer
     drawer.w = drawerDownsizeWidth / 2;
     drawer.h = drawerDownsizeHeight / 2;
     drawer.x += 20 * widthRatio;
     drawer.y += 60 * heightRatio;
 
-    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), 
+                            palette.getB(0), 255 );
     SDL_RenderDrawRect(renderer, &drawer); 
     SDL_RenderFillRect(renderer, &drawer);
 }

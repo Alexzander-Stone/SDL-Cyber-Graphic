@@ -11,7 +11,6 @@ class Console{
         void draw(SDL_Renderer*);
 
     private:
-        // Try to change var's to const later. 
-        int consoleWidth, consoleHeight;
-        int positionX, positionY;
+        const int consoleWidth, consoleHeight;
+        const int positionX, positionY;
 };

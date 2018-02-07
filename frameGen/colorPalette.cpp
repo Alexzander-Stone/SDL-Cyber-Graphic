@@ -23,7 +23,8 @@ ColorPalette::ColorPalette(const Uint8 red, const Uint8 green, const Uint8 blue)
 }
 
 // Copy constructor
-ColorPalette::ColorPalette(const ColorPalette& palette): r(palette.r), g(palette.g), b(palette.b)
+ColorPalette::ColorPalette(const ColorPalette& palette)
+    : r(palette.r), g(palette.g), b(palette.b)
 {
 }
 
