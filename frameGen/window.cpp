@@ -2,6 +2,7 @@
 #include <math.h>
 #include <cstdlib>
 #include <ctime>
+#include <SDL.h>
 #include "window.h"
 #include "brick.h"
 #include "star.h"
@@ -17,13 +18,24 @@ Window::Window(const int posX, const int posY, const int windowW, const int wind
 void Window::draw(SDL_Renderer* renderer)
 {
     ColorPalette palette;
-    palette.addPalette(0, 0, 0); // Black background
+    palette.addPalette(0, 0, 0); // Background gradient
     palette.addPalette(244, 252, 126); // Star color
     palette.addPalette(0, 0, 0); // Button rect
     palette.addPalette(60, 60, 60); // Bottom curtain
     palette.addPalette(120, 120, 120); // Top curtain 
 
-    // Background of window, clear black.
+    // Background of window, gradient.
+    int totalRows = ceil(height);
+
+    
+    for(int currentRow = 0; currentRow < totalRows; currentRow++)
+    {
+        SDL_SetRenderDrawColor( renderer, (currentRow <= 170)?currentRow:170, 0, (currentRow <= 128)?currentRow:128, 255 );
+        SDL_RenderDrawLine(renderer, positionX, positionY + currentRow, 
+                            positionX + width, positionY + currentRow);
+    }
+
+/*
     SDL_Rect windowBackground;
 
     windowBackground.w = width;
@@ -35,6 +47,7 @@ void Window::draw(SDL_Renderer* renderer)
                            palette.getB(0), 255);
     SDL_RenderDrawRect(renderer, &windowBackground);
     SDL_RenderFillRect(renderer, &windowBackground);
+*/
 
     /* Create stars in window */
     for(int totalStars = 0; totalStars < 10; totalStars++)
@@ -44,7 +57,7 @@ void Window::draw(SDL_Renderer* renderer)
         int starY = positionY + 25 + rand()%(height - (int)(50*1.5));
         SDL_Point starCenter = {starX, starY};
 
-        SDL_Color color = {palette.getR(1), palette.getG(1), palette.getB(1), 128};
+        SDL_Color color = {palette.getR(1), palette.getG(1), palette.getB(1), 200};
         Star star( starCenter, starWidth, starHeight, color );
         star.draw(renderer);
     }
