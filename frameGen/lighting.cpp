@@ -12,14 +12,15 @@ Lighting::Lighting(const SDL_Point center, const int radiusW, const int radiusH,
 void Lighting::draw(SDL_Renderer* renderer)
 {
     int totalCircles = 6;
+    
     // Draw lightings of varying opacity, (start with largest lighting w/ least
     // opacity and continue making smaller lightings with higher opacities).
     for(int lightingLoop = totalCircles; lightingLoop > 0; lightingLoop--)
     {
-        float opacityRadiusW = lightingRadiusW * ((lightingLoop-totalCircles)*2.0) * -1;
-        float opacityRadiusH = lightingRadiusH * ((lightingLoop-totalCircles)*2.0) * -1;
-
-        std::cout << "opacity w is = " << opacityRadiusW << " and opacity h is = " << opacityRadiusH << std::endl;
+        float opacityRadiusW = lightingRadiusW + 
+                               ((lightingLoop-totalCircles)*(lightingRadiusW/4)) * -1;
+        float opacityRadiusH = lightingRadiusH + 
+                               ((lightingLoop-totalCircles)*(lightingRadiusW/4)) * -1;
 
         SDL_Color portionColor = { (Uint8)(lightingColor.r ), 
                                    (Uint8)(lightingColor.g ), 

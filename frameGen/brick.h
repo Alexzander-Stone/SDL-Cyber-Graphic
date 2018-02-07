@@ -8,5 +8,5 @@ class Brick{
         void draw(SDL_Renderer* renderer);
 
     private:
-        int positionX, positionY, brickW, brickH;
+        const int positionX, positionY, brickW, brickH;
 };

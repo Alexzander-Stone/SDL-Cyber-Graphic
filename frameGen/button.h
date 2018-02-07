@@ -10,8 +10,8 @@ class Button{
         void draw(SDL_Renderer* renderer);
 
     private:
-        int ellipseRadiusW, ellipseRadiusH;
+        const int ellipseRadiusW, ellipseRadiusH;
         SDL_Point ellipseCenter;
         SDL_Rect squareButton;
-        ColorPalette palette;
+        const ColorPalette palette;
 };

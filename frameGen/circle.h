@@ -9,7 +9,7 @@ class Circle{
         void draw(SDL_Renderer* renderer);
 
     private:
-        SDL_Point circleCenter;
-        int circleRadiusW, circleRadiusH;
-        SDL_Color circleColor;
+        const SDL_Point circleCenter;
+        const int circleRadiusW, circleRadiusH;
+        const SDL_Color circleColor;
 };
