@@ -6,6 +6,8 @@
 #include "line.h"
 #include "star.h"
 
+const float PI = 3.14159265;
+
 Console::Console(const int cWidth, const int cHeight, const int posX, const int posY) 
                 : consoleWidth(cWidth), consoleHeight(cHeight), positionX(posX), positionY(posY) 
 { 
@@ -210,7 +212,7 @@ void Console::draw(SDL_Renderer* renderer)
     SDL_SetRenderDrawColor( renderer, palette.getR(4), palette.getG(4), 
                             palette.getB(4), 255 );
     terminalSinWave.drawCosLine(1, terminalDownsizeW/7, terminal.x+(5*widthRatio), 
-                                terminal.y+(terminalDownsizeH/2));
+                                terminal.y+(terminalDownsizeH/2), PI * 0);
     
     // Star effect on top left terminal.
     int starWidth = 50 * widthRatio;

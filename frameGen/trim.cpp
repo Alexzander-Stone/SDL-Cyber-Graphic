@@ -5,6 +5,8 @@
 #include "button.h"
 #include "line.h"
 
+const float PI = 3.14159265;
+
 Trim::Trim(const int posX, const int posY, const int trimW, const int trimH)
               :positionX(posX), positionY(posY),
                width(trimW), height(trimH)
@@ -42,8 +44,8 @@ void Trim::draw(SDL_Renderer* renderer)
     SDL_SetRenderDrawColor(renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
     for(int yChange = 0; yChange < 2; yChange++)
     {
-        sinDetail.drawCosLine(50, sinLength, positionX, positionY + sinLength + (sinLength * 2 * yChange));
-        sinDetail.drawSinLine(50, sinLength, positionX, positionY + sinLength + (sinLength * 2 * yChange));
+        sinDetail.drawCosLine(50, sinLength, positionX, positionY + sinLength + (sinLength * 2 * yChange), PI * 0);
+        sinDetail.drawSinLine(50, sinLength, positionX, positionY + sinLength + (sinLength * 2 * yChange), PI * 0);
     }
 
     // Large Detailing

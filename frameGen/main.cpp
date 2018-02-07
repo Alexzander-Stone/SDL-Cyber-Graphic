@@ -62,8 +62,8 @@ int main(void) {
   /* Lighting */ 
   SDL_Point lightingCenter = {200, 200};
   SDL_Color lightingColor = {216, 144, 49, 1};
-  int lightingRadiusW = 50;
-  int lightingRadiusH = 50;
+  int lightingRadiusW = 25;
+  int lightingRadiusH = 25;
 
   Lighting firstLighting(lightingCenter, lightingRadiusW, lightingRadiusH, 
                          lightingColor);
