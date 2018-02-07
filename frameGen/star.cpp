@@ -26,7 +26,7 @@ void Star::draw(SDL_Renderer* renderer)
             // the ellipsis formula into it like how the circle formula was set
             // up (move radius to right side).
             //
-            // (x^2) + (b^2) = r^2
+            // (x^2) + (b^2) = 1 -> (x^2) + (b^2) = r^2
             // (x^2/a^2) + (y^2/b^2) = 1 -> (x^2*b^2) + (y^2*a^2) = a^2*b^2
             // a = radius width, b = radius height
             

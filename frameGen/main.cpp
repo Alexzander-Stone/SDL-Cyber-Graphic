@@ -52,8 +52,7 @@ int main(void) {
   Window windowBackground(WIDTH / 2, 0, 500, 300);
   windowBackground.draw(renderer);
 
-  /* Create consoles */
-  // Give them different initial starting event points.
+  /* Create console. */
   int cFirstWidth = 480, cFirstHeight = 810; 
   Console firstConsole(cFirstWidth, cFirstHeight, 10, 
                        HEIGHT - (cFirstHeight)-8);

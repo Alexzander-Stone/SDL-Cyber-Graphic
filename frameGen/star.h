@@ -9,7 +9,7 @@ class Star{
         void draw(SDL_Renderer* renderer);
 
     private:
-        SDL_Point starCenter;
-        int starRadiusW, starRadiusH;
-        SDL_Color starColor;
+        const SDL_Point starCenter;
+        const int starRadiusW, starRadiusH;
+        const SDL_Color starColor;
 };

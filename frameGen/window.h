@@ -9,6 +9,6 @@ class Window{
         void draw(SDL_Renderer* renderer);
 
     private:
-        int positionX, positionY;
-        int width, height;
+        const int positionX, positionY;
+        const int width, height;
 };

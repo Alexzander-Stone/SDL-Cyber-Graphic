@@ -37,7 +37,6 @@ void Window::draw(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &windowBackground);
 
     /* Create stars in window */
-    
     for(int totalStars = 0; totalStars < 10; totalStars++)
     {
         int starWidth = 50 - rand()%30, starHeight = 50 - rand()%30;

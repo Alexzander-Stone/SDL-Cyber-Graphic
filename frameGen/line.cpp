@@ -9,7 +9,6 @@ Line::Line(SDL_Renderer* totalRenderer)
 {
 }
 
-// rotation angle will rotate the line ( Uses radians as values currently).
 void Line::drawCosLine(int curvesToRepeat, int lengthOfCurve, 
                        int startingX, int startingY,
                        int rotationAngle)
@@ -20,8 +19,8 @@ void Line::drawCosLine(int curvesToRepeat, int lengthOfCurve,
         {
             // Origin is top left, so place rotation origin point at current
             // point.
-            float cosPointX = (theta*lengthOfCurve); 
-            float cosPointY = ((cos(theta)*lengthOfCurve)); 
+            float cosPointX = theta*lengthOfCurve; 
+            float cosPointY = cos(theta)*lengthOfCurve; 
             float rotatedPointX = (cosPointX*cos(rotationAngle)) 
                                   - (cosPointY*sin(rotationAngle)) + startingX;
             float rotatedPointY = (cosPointX*sin(rotationAngle)) 
@@ -29,12 +28,11 @@ void Line::drawCosLine(int curvesToRepeat, int lengthOfCurve,
 
             SDL_RenderDrawPoint(renderer, rotatedPointX, rotatedPointY); 
         }
-        startingX += ((2*PI*lengthOfCurve) * cos(rotationAngle));
-        startingY += ((2*PI*lengthOfCurve) * sin(rotationAngle));
+        startingX += (2*PI*lengthOfCurve) * cos(rotationAngle);
+        startingY += (2*PI*lengthOfCurve) * sin(rotationAngle);
     }
 }
 
-// rotation angle will rotate the line ( Uses radians as values currently).
 void Line::drawSinLine(int curvesToRepeat, int lengthOfCurve, 
                        int startingX, int startingY,
                        int rotationAngle)
@@ -45,8 +43,8 @@ void Line::drawSinLine(int curvesToRepeat, int lengthOfCurve,
         {
             // Origin is top left, so place rotation origin point at current
             // point.
-            float sinPointX = (theta*lengthOfCurve); //+ startingX;
-            float sinPointY = ((sin(theta)*lengthOfCurve)); //+ startingY;
+            float sinPointX = theta*lengthOfCurve;
+            float sinPointY = sin(theta)*lengthOfCurve;
 
             float rotatedPointX = (sinPointX*cos(rotationAngle)) 
                                   - (sinPointY*sin(rotationAngle)) + startingX;
@@ -55,13 +53,11 @@ void Line::drawSinLine(int curvesToRepeat, int lengthOfCurve,
             
             SDL_RenderDrawPoint(renderer, rotatedPointX, rotatedPointY); 
         }
-        startingX += ((2*PI*lengthOfCurve) * cos(rotationAngle));
-        startingY += ((2*PI*lengthOfCurve) * sin(rotationAngle));
+        startingX += (2*PI*lengthOfCurve) * cos(rotationAngle);
+        startingY += (2*PI*lengthOfCurve) * sin(rotationAngle);
     }
 }
 
-
-// rotation angle will rotate the line ( Uses radians as values currently).
 void Line::drawTanLine(int curvesToRepeat, int lengthOfCurve, 
                        int startingX, int startingY,
                        int rotationAngle)
@@ -72,8 +68,8 @@ void Line::drawTanLine(int curvesToRepeat, int lengthOfCurve,
         {
             // Origin is top left, so place rotation origin point at current
             // point.
-            float tanPointX = (theta*lengthOfCurve); //+ startingX;
-            float tanPointY = ((tan(theta)*lengthOfCurve)); //+ startingY;
+            float tanPointX = theta*lengthOfCurve; 
+            float tanPointY = tan(theta)*lengthOfCurve; 
 
             float rotatedPointX = (tanPointX*cos(rotationAngle)) 
                                   - (tanPointY*sin(rotationAngle)) + startingX;
@@ -82,7 +78,7 @@ void Line::drawTanLine(int curvesToRepeat, int lengthOfCurve,
 
             SDL_RenderDrawPoint(renderer, rotatedPointX, rotatedPointY); 
         }
-        startingX += ((2*PI*lengthOfCurve) * cos(rotationAngle));
-        startingY += ((2*PI*lengthOfCurve) * sin(rotationAngle));
+        startingX += (2*PI*lengthOfCurve) * cos(rotationAngle);
+        startingY += (2*PI*lengthOfCurve) * sin(rotationAngle);
     }
 }

@@ -8,5 +8,5 @@ class Trim{
         void draw(SDL_Renderer* renderer);
 
     private:
-        int positionX, positionY, width, height;
+        const int positionX, positionY, width, height;
 };
