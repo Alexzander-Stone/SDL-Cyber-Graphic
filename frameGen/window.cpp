@@ -75,7 +75,7 @@ void Window::draw(SDL_Renderer* renderer)
 
         SDL_Point buttonLocation = {trimX, trimY + height/2};
 
-        Button trimButton(trimSpacing-5, height/2,
+        Button trimButton(trimSpacing*2, height/2,
                           buttonLocation, buttonRect,
                           palette);
         trimButton.draw(renderer);

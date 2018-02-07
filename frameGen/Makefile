@@ -8,7 +8,7 @@ LDFLAGS = `sdl2-config --libs` -lm
 OBJS = \
   frameGenerator.o \
   main.o \
-  backLayer.o \
+  line.o \
   console.o \
   circle.o \
   star.o \

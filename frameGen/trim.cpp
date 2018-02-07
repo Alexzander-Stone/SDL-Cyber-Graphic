@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include "trim.h"
 #include "button.h"
-#include "backLayer.h"
+#include "line.h"
 
 Trim::Trim(const int posX, const int posY, const int trimW, const int trimH)
               :positionX(posX), positionY(posY),
@@ -36,14 +36,14 @@ void Trim::draw(SDL_Renderer* renderer)
     // Add detail to the trimming.
     
     // Sin wave detailing, create two sets on top and bottom of trim.
-    BackLayer sinDetail(renderer);
+    Line sinDetail(renderer);
     float sinLength = 5;
 
     SDL_SetRenderDrawColor(renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
     for(int yChange = 0; yChange < 2; yChange++)
     {
-        sinDetail.createCosLine(50, sinLength, positionX, positionY + sinLength + (sinLength * 2 * yChange));
-        sinDetail.createSinLine(50, sinLength, positionX, positionY + sinLength + (sinLength * 2 * yChange));
+        sinDetail.drawCosLine(50, sinLength, positionX, positionY + sinLength + (sinLength * 2 * yChange));
+        sinDetail.drawSinLine(50, sinLength, positionX, positionY + sinLength + (sinLength * 2 * yChange));
     }
 
     // Large Detailing

@@ -3,9 +3,8 @@
 #include "console.h"
 #include "circle.h"
 #include "button.h"
-#include "backLayer.h"
+#include "line.h"
 #include "star.h"
-//#include "colorPalette.h"
 
 Console::Console(const int cWidth, const int cHeight, const int posX, const int posY) 
                 : consoleWidth(cWidth), consoleHeight(cHeight), positionX(posX), positionY(posY) 
@@ -52,9 +51,6 @@ void Console::draw(SDL_Renderer* renderer)
 
     SDL_SetRenderDrawColor( renderer,
                             palette.getR(3), palette.getG(3), palette.getB(3), 255);
-
-
-
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
 
@@ -107,9 +103,6 @@ void Console::draw(SDL_Renderer* renderer)
                                       (int)(positionY + (int)(250 * heightRatio) 
                                       + ellipseRadiusH + (rows * ellipseRadiusH*2) 
                                       + (rows * buttonSpacing))};
-            std::cout << "positionx: " << positionX << " ellipseRadiusW: " 
-                      << ellipseRadiusW << " x is " << buttonCenter.x 
-                      << "and y is " << buttonCenter.y << std::endl;
 
             Button consoleButton(ellipseRadiusW, ellipseRadiusH, 
                                  buttonCenter, squareButton, 
@@ -132,13 +125,12 @@ void Console::draw(SDL_Renderer* renderer)
         }
     }
 
-    // Space bar
+    /* Space bar */
     int spaceBarOffsetX = 10 * widthRatio;
     squareButton.x = slantedSurface.x + spaceBarOffsetX;
     squareButton.y = slantedSurface.y + (slantedSurface.h*.75);
     squareButton.w = consoleWidth - spaceBarOffsetX*2;
     
-    // render space marines.
     SDL_RenderDrawRect(renderer, &squareButton);
     SDL_RenderFillRect(renderer, &squareButton);
     
@@ -218,9 +210,9 @@ void Console::draw(SDL_Renderer* renderer)
     /* Special effects on terminals */
     
     // Sin wave effect
-    BackLayer terminalSinWave(renderer);
+    Line terminalSinWave(renderer);
     SDL_SetRenderDrawColor(renderer, palette.getR(4), palette.getG(4), palette.getB(4), 255);
-    terminalSinWave.createCosLine(1, terminalDownsizeW/7, terminal.x+(5*widthRatio), terminal.y+(terminalDownsizeH/2));
+    terminalSinWave.drawCosLine(1, terminalDownsizeW/7, terminal.x+(5*widthRatio), terminal.y+(terminalDownsizeH/2));
     
     // Star effect
     // Place on top left terminal
@@ -304,6 +296,4 @@ void Console::draw(SDL_Renderer* renderer)
     SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
     SDL_RenderDrawRect(renderer, &drawer); 
     SDL_RenderFillRect(renderer, &drawer);
-
-     
 }
