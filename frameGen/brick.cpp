@@ -15,14 +15,13 @@ Brick::Brick( const int posX, const int posY,
 
 void Brick::draw(SDL_Renderer* renderer)
 {
-
     ColorPalette palette;
     palette.addPalette(41, 4, 99); // Brick Background 
     palette.addPalette(0, 0, 0); // Brick spacing/divet 
     palette.addPalette(0, 0, 100); // Brick highlight
     palette.addPalette(0, 0, 20); // Brick shadow/lowlight
 
-    // Color in the background of the brick tile
+    /* Color in the background of the brick tile. */
     SDL_Rect brickBackground;
 
     brickBackground.w = brickW;
@@ -30,12 +29,15 @@ void Brick::draw(SDL_Renderer* renderer)
     brickBackground.x = positionX;
     brickBackground.y = positionY;
 
-    SDL_SetRenderDrawColor(renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_SetRenderDrawColor(renderer, palette.getR(0), palette.getG(0), 
+                           palette.getB(0), 255);
     SDL_RenderDrawRect(renderer, &brickBackground);
     SDL_RenderFillRect(renderer, &brickBackground);
 
-    // Add lines to create the divets in the bricks.
-    // Include the lowlights and highlights for the bricks.
+    /* Add divets to the bricks using lines. 
+     * Include the lowlights and highlights for the bricks. Used to give depth
+     * in the scene.
+     */
     for(int row = 0; row < 4; row++)
     {
         // Horizontal lines
@@ -50,7 +52,7 @@ void Brick::draw(SDL_Renderer* renderer)
                            lineEndX, lineEndY);
         
         // Add a highlight to the bottom of each line and shadow
-        // to the top of each line to give depth.
+        // to the top of each line.
         // Give the highlight thickness/width.
         for(int depthThickness = 1; depthThickness < 3; depthThickness++)
         {
@@ -59,7 +61,7 @@ void Brick::draw(SDL_Renderer* renderer)
             int depthEndY = depthBeginY;
 
             SDL_SetRenderDrawColor(renderer, palette.getR(2), palette.getG(2), 
-                               palette.getB(2), 155);
+                                   palette.getB(2), 155);
             SDL_RenderDrawLine(renderer, lineBeginX, depthBeginY, 
                                lineEndX, depthEndY);
 
@@ -68,7 +70,7 @@ void Brick::draw(SDL_Renderer* renderer)
             depthEndY = depthBeginY;
 
             SDL_SetRenderDrawColor(renderer, palette.getR(3), palette.getG(3), 
-                               palette.getB(3), 155);
+                                   palette.getB(3), 155);
             SDL_RenderDrawLine(renderer, lineBeginX, depthBeginY, 
                                lineEndX, depthEndY);
         }
@@ -90,8 +92,9 @@ void Brick::draw(SDL_Renderer* renderer)
         }
     }
     
-    // Dithering, creates roughness and texture on the brick.
-    // Randomly made.
+    /* Dithering, creates roughness and texture on the brick. 
+     * Randomly generated. 
+     */
     for(int numbDithers = 0; numbDithers < 1000; numbDithers++)
     {
         int ditherX = positionX + rand()%(brickW);

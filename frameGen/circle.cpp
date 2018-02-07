@@ -12,7 +12,10 @@ void Circle::draw(SDL_Renderer* renderer)
 {
     int squaredRadW = circleRadiusW * circleRadiusW;
     int squaredRadH = circleRadiusH * circleRadiusH;
-    // Draw circles
+    
+    /* Begin drawing the circle using ellipsis formula.
+     * Allows for circle and oval shapes.
+     */
     SDL_SetRenderDrawColor( renderer, 
                             circleColor.r, circleColor.g, 
                             circleColor.b, circleColor.a );
@@ -28,7 +31,7 @@ void Circle::draw(SDL_Renderer* renderer)
             // the ellipsis formula into it like how the circle formula was set
             // up (move radius to right side).
             //
-            // (x^2) + (b^2) = r^2
+            // (x^2) + (b^2) = 1         -> (x^2) + (b^2) = r^2
             // (x^2/a^2) + (y^2/b^2) = 1 -> (x^2*b^2) + (y^2*a^2) = a^2*b^2
             // a = radius width, b = radius height
             if(( (dx*dx*squaredRadH) + (dy*dy*squaredRadW) ) <= squaredRadW*squaredRadH)

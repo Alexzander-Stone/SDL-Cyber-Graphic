@@ -2,7 +2,7 @@
 
 class Circle{
     public:
-        /* Circle width and height, position x and y coordinates 
+        /* Circle x and y coordinates, width and height, 
          * and SDL color choice.
          */
         Circle(const SDL_Point, const int, const int, const SDL_Color);
