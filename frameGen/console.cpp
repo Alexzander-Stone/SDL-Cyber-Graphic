@@ -1,5 +1,7 @@
 #include <iostream>
 #include <math.h>
+#include <cstdlib>
+#include <ctime>
 #include "console.h"
 #include "circle.h"
 #include "button.h"
@@ -12,6 +14,7 @@ const float PI = 3.14159265;
 Console::Console(const int cWidth, const int cHeight, const int posX, const int posY) 
                 : consoleWidth(cWidth), consoleHeight(cHeight), positionX(posX), positionY(posY) 
 { 
+    srand(time(0));
 }
 
 void Console::draw(SDL_Renderer* renderer)
@@ -232,6 +235,36 @@ void Console::draw(SDL_Renderer* renderer)
     SDL_Color starColor = {palette.getR(4), palette.getG(4), palette.getB(4), 255};
     Star terminalStar(starPoint, starWidth, starHeight, starColor); 
     terminalStar.draw(renderer);
+
+    // Static on top right and bottom right terminals.
+    int terminalRightX = console.x + terminalBorderX + terminalSpacingX;
+    int terminalRightY = console.y + terminalBorderY;
+    int terminalLeftX = console.x + terminalBorderX;
+    int terminalLeftY = console.y + terminalBorderY + terminalSpacingY;
+    
+    int totalX = terminal.w;
+    int totalY = terminal.h;
+    
+    SDL_SetRenderDrawColor( renderer, 255, 255, 
+                                255, 120 );
+
+    for(int currentSpotX = 0; currentSpotX < totalX; currentSpotX++)
+    {
+        for(int currentSpotY = 0; currentSpotY < totalY; currentSpotY++)
+        {
+            // Top right.
+            srand(time(0) + rand());
+            if(rand()%2 == 0)
+                SDL_RenderDrawPoint(renderer, currentSpotX + terminalRightX, 
+                                    currentSpotY + terminalRightY);
+            
+            // Top left.
+            srand(time(0) + rand());
+            if(rand()%2 == 0)
+                SDL_RenderDrawPoint(renderer, currentSpotX + terminalLeftX,
+                                    currentSpotY + terminalLeftY);
+        }
+    }
 
     /* Drawers. */
     SDL_Rect drawer;
