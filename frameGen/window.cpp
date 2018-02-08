@@ -21,8 +21,8 @@ void Window::draw(SDL_Renderer* renderer)
     palette.addPalette(0, 0, 0); // Background gradient
     palette.addPalette(244, 252, 126); // Star color
     palette.addPalette(0, 0, 0); // Button rect
-    palette.addPalette(60, 60, 60); // Bottom curtain
-    palette.addPalette(120, 120, 120); // Top curtain 
+    palette.addPalette(120, 120, 120); // Bottom curtain
+    palette.addPalette(160, 160, 160); // Top curtain 
 
     // Background of window, gradient.
     int totalRows = ceil(height);
