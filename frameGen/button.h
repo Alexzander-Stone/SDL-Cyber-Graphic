@@ -19,4 +19,4 @@ class Button{
 };
 
 // Overloaded output operator. Useful for testing static var.
-std::ostream& operator<<(std::ostream& out, const Button& b);
+std::ostream& operator <<(std::ostream& out, const Button& b);

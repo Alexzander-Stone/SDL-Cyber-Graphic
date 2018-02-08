@@ -1,0 +1,40 @@
+Name: Alexzander Stone
+
+Course: CpSc 4160: Data-Driven 2D Video Game Development
+
+Clemson Email Address: alexzas@clemson.edu
+
+Project no: 2
+
+Project due date: Feb. 8, 2018
+
+Project description: (Also, what image did you draw?)
+We were given a graphics framework (SDL) to use in C++ to render an image to
+the display. Given primitives in the SDL framework and a few from Dr. Malloy, 
+we were expected to create an image with a variety of shapes and objects. The
+image itself could be chosen freely, so creativity was valued. I chose to take
+inspiration from a GIF
+( https://media.boingboing.net/wp-content/uploads/2015/09/coffee_in_rain_by_kirokaze-d98qb8z.gif )
+and the cyberpunk genre and created a room with a future terminal and light,
+bricks with random dithering, an outlet, and a window with star light. The
+terminal itself contained many pieces, like buttons that changed colors and
+terminals with static, and was the focus of the scene. Overall, I was happy
+that the "animation" I created went well and the dithered lighting effect that
+was produced by the lamp at the top of the scene.
+
+The easiest part of this project:
+Beginning the project was the easiest part of the project. I had so many ideas
+in my mind that I chose to immediately start working on modular classes. By the
+end, I was happy with the different classes that were available to me to craft
+the scene. Also, I accidently created a fancy star class when making the circle
+class so that was neat.
+
+Problems that I had in completing this project:
+The largest issue that I had was related to the console class. In the early
+stages of my development phase, I did not have a clear idea of the scope of the
+scene I was creating. I knew that I would have a console somewhere in the
+scene, but I had no clue how many I would use in the scene. To solve this
+issue I tried to make the console into an object that could easily be resized
+for any type of environment. As time went on, I narrowed my focus on the
+previously mentioned main parts of the scene but still felt comfortable with
+how the console class came out.

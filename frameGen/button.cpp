@@ -7,6 +7,19 @@
 // static var
 int Button::buttonCounter = 0;
 
+int Button::getCounter() const
+{
+    return buttonCounter;
+}
+
+// Overloaded operator, helped with the static var.
+std::ostream& operator <<(std::ostream& out, const Button &b)
+{
+    out << "The current button is button #" << b.getCounter();
+    return out;
+}
+
+
 Button::Button(const int eRadiusW, const int eRadiusH,  
                const SDL_Point center, SDL_Rect sqrRect,
                const ColorPalette pal)
@@ -51,14 +64,3 @@ void Button::draw(SDL_Renderer* renderer)
 
 
 
-int Button::getCounter() const
-{
-    return buttonCounter;
-}
-
-// Overloaded operator, helped with the static var.
-std::ostream& operator<<(std::ostream& out, const Button b)
-{
-    out << "The current button is button #" << b.getCounter();
-    return out;
-}
