@@ -30,24 +30,11 @@ void Window::draw(SDL_Renderer* renderer)
     
     for(int currentRow = 0; currentRow < totalRows; currentRow++)
     {
-        SDL_SetRenderDrawColor( renderer, (currentRow <= 170)?currentRow:170, 0, (currentRow <= 128)?currentRow:128, 255 );
+        SDL_SetRenderDrawColor( renderer, (currentRow <= 170)?currentRow:170, 0, 
+                                (currentRow <= 128)?currentRow:128, 255 );
         SDL_RenderDrawLine(renderer, positionX, positionY + currentRow, 
                             positionX + width, positionY + currentRow);
     }
-
-/*
-    SDL_Rect windowBackground;
-
-    windowBackground.w = width;
-    windowBackground.h = height;
-    windowBackground.x = positionX;
-    windowBackground.y = positionY;
-
-    SDL_SetRenderDrawColor(renderer, palette.getR(0), palette.getG(0), 
-                           palette.getB(0), 255);
-    SDL_RenderDrawRect(renderer, &windowBackground);
-    SDL_RenderFillRect(renderer, &windowBackground);
-*/
 
     /* Create stars in window */
     for(int totalStars = 0; totalStars < 10; totalStars++)

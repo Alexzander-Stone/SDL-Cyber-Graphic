@@ -14,6 +14,9 @@
 void fillBrickBackground(SDL_Renderer* renderer,
                          const int brickWidth, const int brickHeight, 
                          const int totalBrickW, const int totalBrickH);
+void drawOutlet(SDL_Renderer* renderer, 
+                const int outletX, const int outletY, 
+                const int outletWidth, const int outletHeight);
 
 const std::string NAME = "alexzas";
 const int WIDTH = 720;
@@ -57,7 +60,14 @@ int main(void) {
   Console firstConsole(cFirstWidth, cFirstHeight, 10, 
                        HEIGHT - (cFirstHeight)-8);
   firstConsole.draw(renderer);
- 
+
+  /* Create outlet */
+  int outletX = 575, outletY = 1100;
+  int outletWidth = 60, outletHeight = 85; 
+  drawOutlet( renderer, 
+              outletX, outletY,
+              outletWidth, outletHeight );
+
   /* Lighting */ 
   SDL_Point lightingCenter = {200, 200};
   SDL_Color lightingColor = {216, 144, 49, 1};
@@ -108,5 +118,97 @@ void fillBrickBackground(SDL_Renderer* renderer,
                                 brickWidth, brickHeight);
           brickBackground.draw(renderer);
       }
+  }
+}
+
+void drawOutlet(SDL_Renderer* renderer, 
+                const int outletX, const int outletY, 
+                const int outletWidth, const int outletHeight)
+{
+  
+  /* Base of outlet */
+  // Draw multiple rectangles to show depth.
+  SDL_Rect outlet;
+  outlet.w = outletWidth;
+  outlet.h = outletHeight;
+  outlet.x = outletX;
+  outlet.y = outletY;
+
+  SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+  SDL_RenderDrawRect(renderer, &outlet);
+  SDL_RenderFillRect(renderer, &outlet);
+
+  /* Panel of outlet */
+  // Use multiple rect's to give depth.
+  int offSet = 20;
+
+  for( int currentDepth = 3; currentDepth > 0; currentDepth--)
+  {
+    outlet.w = outletWidth - offSet + (10 * currentDepth);
+    outlet.h = outletHeight - offSet + (10 * currentDepth);
+    outlet.x = outletX + offSet/2 - (5 * currentDepth);
+    outlet.y = outletY + offSet/2 - (5 * currentDepth);
+
+    SDL_SetRenderDrawColor( renderer, 40 + (20 * currentDepth), 
+                            40 + (20 * currentDepth), 40 + (20 * currentDepth), 
+                            255 );
+    SDL_RenderDrawRect(renderer, &outlet);
+    SDL_RenderFillRect(renderer, &outlet);
+  }
+
+  /* Lines Connecting Corners */
+  SDL_SetRenderDrawColor( renderer, 160, 160, 160, 255 );
+
+  SDL_RenderDrawLine( renderer, outlet.x, outlet.y,
+                      outletX, outletY);
+  SDL_RenderDrawLine( renderer, outlet.x + outlet.w, outlet.y,
+                      outletX + outletWidth, outletY);
+  SDL_RenderDrawLine( renderer, outlet.x, outlet.y + outlet.h,
+                      outletX, outletY + outletHeight);
+  SDL_RenderDrawLine( renderer, outlet.x + outlet.w, outlet.y + outlet.h,
+                      outletX + outletWidth, outletY + outletHeight);
+
+  /* Line crossing gap. */ 
+  outlet.x = outletX;
+  outlet.y = outletY + outletHeight / 2;
+  outlet.w = outletWidth;
+  outlet.h = 1;
+
+  SDL_SetRenderDrawColor( renderer, 100, 100, 100, 255 );
+  SDL_RenderDrawRect(renderer, &outlet);
+  SDL_RenderFillRect(renderer, &outlet);
+  
+
+
+  /* Plug holes */
+  SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255);
+
+  for( int currentPlug = 0; currentPlug < 2; currentPlug++)
+  {
+    // Left hole.
+    outlet.w = (outletWidth - offSet) / 10;
+    outlet.h = (outletHeight - offSet) / 6;
+    outlet.x = outletX + outletWidth/3 - 2;
+    outlet.y = outletY + outletHeight/8 + ((outletHeight/3 + 12) * currentPlug) + 4;
+    
+    SDL_RenderDrawRect(renderer, &outlet);
+    SDL_RenderFillRect(renderer, &outlet);
+
+    // Right hole.
+    outlet.x = outlet.x + (outlet.x - outletX);
+
+    SDL_RenderDrawRect(renderer, &outlet);
+    SDL_RenderFillRect(renderer, &outlet);
+
+    // Bottom hole.
+    outlet.x = outletX + outletWidth/3 + 2 ;
+    outlet.y += 15;
+    
+    int tempSwap = outlet.w;
+    outlet.w = outlet.h + 5;
+    outlet.h = tempSwap;
+
+    SDL_RenderDrawRect(renderer, &outlet);
+    SDL_RenderFillRect(renderer, &outlet);
   }
 }
