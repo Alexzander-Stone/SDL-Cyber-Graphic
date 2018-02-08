@@ -64,7 +64,7 @@ void Line::drawTanLine(int curvesToRepeat, int lengthOfCurve,
 {
     for(int i = 0; i < curvesToRepeat; i++)
     {
-        for(float theta = 0; theta < 2*PI; theta+=.5)
+        for(float theta = 0; theta < 2*PI; theta+=.1)
         {
             // Origin is top left, so place rotation origin point at current
             // point.

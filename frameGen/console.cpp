@@ -225,7 +225,7 @@ void Console::draw(SDL_Renderer* renderer)
     Line terminalSinWave(renderer);
     SDL_SetRenderDrawColor( renderer, palette.getR(4), palette.getG(4), 
                             palette.getB(4), 255 );
-    terminalSinWave.drawCosLine(1, terminalDownsizeW/7, terminal.x+(5*widthRatio), 
+    terminalSinWave.drawSinLine(1, terminalDownsizeW/7, terminal.x+(5*widthRatio), 
                                 terminal.y+(terminalDownsizeH/2), PI * 0);
     
     // Star effect on top left terminal.
@@ -247,7 +247,7 @@ void Console::draw(SDL_Renderer* renderer)
     int totalY = terminal.h;
     
     SDL_SetRenderDrawColor( renderer, 255, 255, 
-                                255, 120 );
+                                255, 90 );
 
     for(int currentSpotX = 0; currentSpotX < totalX; currentSpotX++)
     {
