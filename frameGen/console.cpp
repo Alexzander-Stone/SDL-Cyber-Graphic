@@ -113,6 +113,7 @@ void Console::draw(SDL_Renderer* renderer)
                                   buttonCenter, squareButton, 
                                   palette);
             consoleButton.draw(renderer);
+            std::cout << consoleButton << std::endl;
         }
 
         // Square Buttons

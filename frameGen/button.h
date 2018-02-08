@@ -8,6 +8,7 @@ class Button{
         Button(const int, const int, const SDL_Point, 
                const SDL_Rect, const ColorPalette);
         void draw(SDL_Renderer* renderer);
+        int getCounter() const;
 
     private:
         const int ellipseRadiusW, ellipseRadiusH;
@@ -16,3 +17,6 @@ class Button{
         const ColorPalette palette;
         static int buttonCounter;
 };
+
+// Overloaded output operator. Useful for testing static var.
+std::ostream& operator<<(std::ostream& out, const Button& b);

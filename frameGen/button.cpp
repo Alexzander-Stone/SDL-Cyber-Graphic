@@ -48,3 +48,17 @@ void Button::draw(SDL_Renderer* renderer)
     bottomButtonEllipse.draw(renderer);
     topButtonEllipse.draw(renderer);
 }
+
+
+
+int Button::getCounter() const
+{
+    return buttonCounter;
+}
+
+// Overloaded operator, helped with the static var.
+std::ostream& operator<<(std::ostream& out, const Button b)
+{
+    out << "The current button is button #" << b.getCounter();
+    return out;
+}
