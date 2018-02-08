@@ -20,7 +20,7 @@ void Button::draw(SDL_Renderer* renderer)
                                palette.getB(3), 255 };
     ellipseCenter.y += ellipseRadiusH/2;
     Circle bottomButtonEllipse( ellipseCenter, ellipseRadiusW, ellipseRadiusH, 
-                                ellipseColor );
+                                ellipseColor, 1);
     ellipseCenter.y -= ellipseRadiusH/2;
 
     /* Square to link together top and bottom ellipse. */
@@ -34,7 +34,7 @@ void Button::draw(SDL_Renderer* renderer)
     ellipseColor = { palette.getR(4), palette.getG(4), palette.getB(4), 
                      255 };
     Circle topButtonEllipse( ellipseCenter, ellipseRadiusW, ellipseRadiusH, 
-                             ellipseColor );
+                             ellipseColor, 1);
 
     //Render from the bottom to the top.
     SDL_RenderDrawRect(renderer, &squareButton);

@@ -107,7 +107,7 @@ void Console::draw(SDL_Renderer* renderer)
 
             Button consoleButton( ellipseRadiusW, ellipseRadiusH, 
                                   buttonCenter, squareButton, 
-                                  palette );
+                                  palette);
             consoleButton.draw(renderer);
         }
 
@@ -209,7 +209,7 @@ void Console::draw(SDL_Renderer* renderer)
             SDL_Point speakerGrillCenter = {speakerX, speakerY}; 
 
             Circle speakerGrill( speakerGrillCenter, speakerWidth, speakerHeight, 
-                                 speakerColor );
+                                 speakerColor, 2);
             speakerGrill.draw(renderer);
         }
     }

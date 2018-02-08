@@ -42,10 +42,10 @@ void Lighting::draw(SDL_Renderer* renderer)
         // Use circle to make the lighting.
         // Clear the canvas beneath the light.
 
-        Circle lightingClear(lightingCenter, opacityRadiusW, opacityRadiusH, resetCanvas);
+        Circle lightingClear(lightingCenter, opacityRadiusW, opacityRadiusH, resetCanvas, 2);
         lightingClear.draw(renderer);
 
-        Circle lightingPortion(lightingCenter, opacityRadiusW, opacityRadiusH, portionColor);
+        Circle lightingPortion(lightingCenter, opacityRadiusW, opacityRadiusH, portionColor, 2);
         lightingPortion.draw(renderer);
     }
 

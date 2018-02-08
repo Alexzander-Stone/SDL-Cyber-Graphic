@@ -14,9 +14,9 @@ void Star::draw(SDL_Renderer* renderer)
     int squaredRadH = starRadiusH * starRadiusH;
     
     SDL_SetRenderDrawColor(renderer, starColor.r, starColor.g, starColor.b, starColor.a);
-    for(int w = 0; w < starRadiusW * 2; w++)
+    for(int w = 0; w < starRadiusW * 2; w +=2)
     {
-        for(int h = 0; h < starRadiusH * 2; h++)
+        for(int h = 0; h < starRadiusH * 2; h += 2)
         {
             // x = a cos theta and y = b cos theta
             float dx = w - starRadiusW;

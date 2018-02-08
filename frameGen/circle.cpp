@@ -2,9 +2,11 @@
 #include <math.h>
 #include "circle.h"
 
-Circle::Circle(const SDL_Point center, const int radiusW, const int radiusH, const SDL_Color color)
+Circle::Circle(const SDL_Point center, const int radiusW, const int radiusH, 
+               const SDL_Color color, const int incRate)
               : circleCenter(center), circleRadiusW(radiusW), 
-                circleRadiusH(radiusH), circleColor(color)
+                circleRadiusH(radiusH), circleColor(color),
+                incrementRate(incRate)
 {
 }
 
@@ -15,13 +17,14 @@ void Circle::draw(SDL_Renderer* renderer)
     
     /* Begin drawing the circle using ellipsis formula.
      * Allows for circle and oval shapes.
+     * Increment rate allows for different styles of filled shapes
      */
     SDL_SetRenderDrawColor( renderer, 
                             circleColor.r, circleColor.g, 
                             circleColor.b, circleColor.a );
-    for(float w = 0; w < circleRadiusW * 2; w+=1)
+    for(float w = 0; w < circleRadiusW * 2; w+= incrementRate)
     {
-        for(float h = 0; h < circleRadiusH * 2; h+=1)
+        for(float h = 0; h < circleRadiusH * 2; h+= incrementRate)
         {
             // x = a cos theta and y = b cos theta
             float dx = w - circleRadiusW;
