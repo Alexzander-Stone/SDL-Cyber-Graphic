@@ -18,9 +18,10 @@ void Console::draw(SDL_Renderer* renderer)
     ColorPalette palette;
     palette.addPalette(1, 13, 33); // Background
     palette.addPalette(1, 18, 45); // Detail (Button)
-    palette.addPalette(2, 34, 85); // Detail (Console Base)
+    palette.addPalette(20, 55, 140); // Detail (Console Base)
     palette.addPalette(1, 48, 128); // Highlight (Slants)
     palette.addPalette(0, 94, 255); // Super Bright
+    palette.addPalette(60, 85, 180); // Slant at middle console
 
     /* Sizing Ratio */
     float widthRatio = consoleWidth / 320.0, heightRatio = consoleHeight / 540.0;
@@ -50,8 +51,8 @@ void Console::draw(SDL_Renderer* renderer)
     slantedSurface.x = positionX;
     slantedSurface.y = positionY;
 
-    SDL_SetRenderDrawColor( renderer, palette.getR(3), palette.getG(3), 
-                            palette.getB(3), 255 );
+    SDL_SetRenderDrawColor( renderer, palette.getR(5), palette.getG(5), 
+                            palette.getB(5), 255 );
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);
 
@@ -67,7 +68,7 @@ void Console::draw(SDL_Renderer* renderer)
     slantedSurface.h = 100 * heightRatio;
     slantedSurface.y = positionY + (250 * heightRatio);
     
-    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), palette.getB(0), 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(5), palette.getG(5), palette.getB(5), 255);
     SDL_RenderDrawRect(renderer, &slantedSurface);
     SDL_RenderFillRect(renderer, &slantedSurface);   
         
@@ -140,8 +141,8 @@ void Console::draw(SDL_Renderer* renderer)
     squareButton.w = consoleWidth - spaceBarOffsetX*2;
     squareButton.h = 5 * heightRatio;
     
-    SDL_SetRenderDrawColor( renderer, palette.getR(0), palette.getG(0), 
-                            palette.getB(0), 255);
+    SDL_SetRenderDrawColor( renderer, palette.getR(5), palette.getG(5), 
+                            palette.getB(5), 255);
     SDL_RenderDrawRect(renderer, &squareButton);
     SDL_RenderFillRect(renderer, &squareButton);
 

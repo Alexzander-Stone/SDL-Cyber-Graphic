@@ -24,6 +24,15 @@ void drawLamp( SDL_Renderer* renderer,
                const int width, const int height,
                const SDL_Color lightingColor );
 
+void animateScene(SDL_Renderer* renderer,
+                  const int brickWidth, const int brickHeight,
+                  const int totalBrickW, const int totalBrickH,
+                  const int outletX, const int outletY,
+                  const int outletWidth, const int outletHeight,
+                  const int lightingRadiusW, const int lightingRadiusH,
+                  const SDL_Color lightingColor, Trim trimBackground,
+                  Window windowBackground, Console firstConsole);
+
 const std::string NAME = "alexzas";
 const int WIDTH = 720;
 const int HEIGHT = 1280;
@@ -79,7 +88,8 @@ int main(void) {
   int lightingRadiusW = 300;
   int lightingRadiusH = 300;
   
-  drawLamp(renderer, 200, 200, lightingRadiusW, lightingRadiusH, lightingColor);
+  drawLamp(renderer, 200, 200, lightingRadiusW, 
+           lightingRadiusH, lightingColor);
 
   // Dump everything from the renderer to the screen.
   SDL_RenderPresent(renderer);
@@ -89,10 +99,19 @@ int main(void) {
   FrameGenerator frameGen(renderer, window, WIDTH, HEIGHT, NAME);
   frameGen.makeFrame();
 
+
   // Event/game loop.
   SDL_Event event;
   const Uint8* keystate;
   while ( true ) {
+    animateScene(renderer,
+                  brickWidth, brickHeight,
+                  totalBrickW, totalBrickH,
+                  outletX, outletY,
+                  outletWidth, outletHeight,
+                  lightingRadiusW, lightingRadiusH,
+                  lightingColor, trimBackground,
+                  windowBackground, firstConsole);
     keystate = SDL_GetKeyboardState(0);
     if (keystate[SDL_SCANCODE_ESCAPE]) { break; }
     if (SDL_PollEvent(&event)) {
@@ -247,4 +266,39 @@ void drawLamp( SDL_Renderer* renderer,
   Lighting firstLighting(lightingCenter, width, height, lightingColor);
   firstLighting.draw(renderer);
 
+}
+
+void animateScene(SDL_Renderer* renderer,
+                  const int brickWidth, const int brickHeight,
+                  const int totalBrickW, const int totalBrickH,
+                  const int outletX, const int outletY,
+                  const int outletWidth, const int outletHeight,
+                  const int lightingRadiusW, const int lightingRadiusH,
+                  const SDL_Color lightingColor, Trim trimBackground,
+                  Window windowBackground, Console firstConsole)
+{
+
+    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
+    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
+
+    fillBrickBackground(renderer, 
+                    brickWidth, brickHeight, 
+                    totalBrickW, totalBrickH);
+
+    trimBackground.draw(renderer);
+
+    windowBackground.draw(renderer);
+
+    firstConsole.draw(renderer);
+
+    drawOutlet( renderer,
+                outletX, outletY,
+                outletWidth, outletHeight );
+
+    drawLamp(renderer, 200, 200, 
+             lightingRadiusW, lightingRadiusH, 
+             lightingColor);
+
+    SDL_RenderPresent(renderer);
 }
