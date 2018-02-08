@@ -3,9 +3,10 @@
 #include "lighting.h"
 #include "circle.h"
 
-Lighting::Lighting(const SDL_Point center, const int radiusW, const int radiusH, const SDL_Color color)
+Lighting::Lighting(const SDL_Point center, const int radiusW, const int radiusH, const SDL_Color color, const int circles)
               : lightingCenter(center), lightingRadiusW(radiusW), 
-                lightingRadiusH(radiusH), lightingColor(color)
+                lightingRadiusH(radiusH), lightingColor(color),
+                totalCircles(circles)
 {
 }
 
@@ -13,8 +14,6 @@ void Lighting::draw(SDL_Renderer* renderer)
 {
     // Change to additive mode.
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_ADD);
-
-    int totalCircles = 10;
     
     // Draw lightings of varying opacity, (start with largest lighting w/ least
     // opacity and continue making smaller lightings with higher opacities).
@@ -36,9 +35,9 @@ void Lighting::draw(SDL_Renderer* renderer)
                                   (Uint8)(0 + (10 * lightingLoop)), 2};
 
         // Change tint of lightingColor
-        lightingColor.r *= .1;
-        lightingColor.g *= .1;
-        lightingColor.b *= .1;
+        lightingColor.r *= .8;
+        lightingColor.g *= .8;
+        lightingColor.b *= .8;
 
         // Use circle to make the lighting.
         // Clear the canvas beneath the light.

@@ -5,6 +5,7 @@
 #include "button.h"
 #include "line.h"
 #include "star.h"
+#include "lighting.h"
 
 const float PI = 3.14159265;
 
@@ -87,7 +88,6 @@ void Console::draw(SDL_Renderer* renderer)
     // Square button on slanted surface.
     squareButton.w = 18 * widthRatio;
     squareButton.h = 18 * heightRatio;
-
 
     // Create three rows of buttons.
     for (int rows = 0; rows <= 2; rows++)
@@ -174,6 +174,15 @@ void Console::draw(SDL_Renderer* renderer)
             terminal.x = console.x + terminalBorderX + (terminalSpacingX * xTransform);
             terminal.y = console.y + terminalBorderY + (terminalSpacingY * yTransform);
         
+
+            /* Lighting on terminal */
+            SDL_Point lightingCenter = {terminal.x + terminal.w/2, terminal.y + terminal.h/2};
+            SDL_Color lightingColor = { 0, 50, 100, 200};
+            int lightCircles = 3;
+            Lighting terminalLighting( lightingCenter, terminal.w/2, terminal.h/2, 
+                                       lightingColor, lightCircles);
+            terminalLighting.draw(renderer);
+
             SDL_RenderDrawRect(renderer, &terminal); 
             SDL_RenderFillRect(renderer, &terminal);
         }

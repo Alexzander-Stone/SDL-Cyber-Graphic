@@ -22,7 +22,7 @@ void drawOutlet(SDL_Renderer* renderer,
 void drawLamp( SDL_Renderer* renderer,
                const int positionX, const int positionY, 
                const int width, const int height,
-               const SDL_Color lightingColor );
+               const SDL_Color lightingColor, const int circles);
 
 void animateScene(SDL_Renderer* renderer,
                   const int brickWidth, const int brickHeight,
@@ -31,7 +31,8 @@ void animateScene(SDL_Renderer* renderer,
                   const int outletWidth, const int outletHeight,
                   const int lightingRadiusW, const int lightingRadiusH,
                   const SDL_Color lightingColor, Trim trimBackground,
-                  Window windowBackground, Console firstConsole);
+                  Window windowBackground, Console firstConsole,
+                  const int circles);
 
 const std::string NAME = "alexzas";
 const int WIDTH = 720;
@@ -84,12 +85,13 @@ int main(void) {
               outletWidth, outletHeight );
 
   /* Lighting */ 
-  SDL_Color lightingColor = {250, 250, 49, 5};
+  SDL_Color lightingColor = {255, 121, 49, 255};
   int lightingRadiusW = 300;
   int lightingRadiusH = 300;
+  int lampCircles = 5;
   
   drawLamp(renderer, 200, 200, lightingRadiusW, 
-           lightingRadiusH, lightingColor);
+           lightingRadiusH, lightingColor, lampCircles);
 
   // Dump everything from the renderer to the screen.
   SDL_RenderPresent(renderer);
@@ -111,7 +113,8 @@ int main(void) {
                   outletWidth, outletHeight,
                   lightingRadiusW, lightingRadiusH,
                   lightingColor, trimBackground,
-                  windowBackground, firstConsole);
+                  windowBackground, firstConsole,
+                  lampCircles);
     keystate = SDL_GetKeyboardState(0);
     if (keystate[SDL_SCANCODE_ESCAPE]) { break; }
     if (SDL_PollEvent(&event)) {
@@ -238,7 +241,7 @@ void drawOutlet(SDL_Renderer* renderer,
 void drawLamp( SDL_Renderer* renderer,
                const int positionX, const int positionY, 
                const int width, const int height,
-               const SDL_Color lightingColor )
+               const SDL_Color lightingColor, const int circles )
 {
   
 
@@ -263,7 +266,7 @@ void drawLamp( SDL_Renderer* renderer,
   /* Lighting */ 
   SDL_Point lightingCenter = {positionX, positionY};
 
-  Lighting firstLighting(lightingCenter, width, height, lightingColor);
+  Lighting firstLighting(lightingCenter, width, height, lightingColor, circles);
   firstLighting.draw(renderer);
 
 }
@@ -275,7 +278,8 @@ void animateScene(SDL_Renderer* renderer,
                   const int outletWidth, const int outletHeight,
                   const int lightingRadiusW, const int lightingRadiusH,
                   const SDL_Color lightingColor, Trim trimBackground,
-                  Window windowBackground, Console firstConsole)
+                  Window windowBackground, Console firstConsole,
+                  const int circles)
 {
 
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
@@ -298,7 +302,7 @@ void animateScene(SDL_Renderer* renderer,
 
     drawLamp(renderer, 200, 200, 
              lightingRadiusW, lightingRadiusH, 
-             lightingColor);
+             lightingColor, circles);
 
     SDL_RenderPresent(renderer);
 }
