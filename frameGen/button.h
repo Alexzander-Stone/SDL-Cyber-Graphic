@@ -14,4 +14,5 @@ class Button{
         SDL_Point ellipseCenter;
         SDL_Rect squareButton;
         const ColorPalette palette;
+        static int buttonCounter;
 };

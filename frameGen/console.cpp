@@ -26,6 +26,7 @@ void Console::draw(SDL_Renderer* renderer)
     palette.addPalette(1, 48, 128); // Highlight (Slants)
     palette.addPalette(0, 94, 255); // Super Bright
     palette.addPalette(60, 85, 180); // Slant at middle console
+    palette.addPalette(120, 20, 20); // Red button
 
     /* Sizing Ratio */
     float widthRatio = consoleWidth / 320.0, heightRatio = consoleHeight / 540.0;

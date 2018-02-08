@@ -1,14 +1,20 @@
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 #include "circle.h"
 #include "button.h"
+
+// static var
+int Button::buttonCounter = 0;
 
 Button::Button(const int eRadiusW, const int eRadiusH,  
                const SDL_Point center, SDL_Rect sqrRect,
                const ColorPalette pal)
               : ellipseRadiusW(eRadiusW), ellipseRadiusH(eRadiusH), 
               ellipseCenter(center), squareButton(sqrRect), 
-              palette(pal)   
+              palette(pal) 
 {
+    srand(time(0) + buttonCounter++);
 }
 
 void Button::draw(SDL_Renderer* renderer)
@@ -31,8 +37,8 @@ void Button::draw(SDL_Renderer* renderer)
 
     /* Top ellipse */
     ellipseCenter.y -= ellipseRadiusH/2;
-    ellipseColor = { palette.getR(4), palette.getG(4), palette.getB(4), 
-                     255 };
+    ellipseColor = { rand()%2?palette.getR(4):palette.getR(6), rand()%2?palette.getG(4):palette.getG(6), 
+                     rand()%2?palette.getB(4):palette.getB(6), 255 };
     Circle topButtonEllipse( ellipseCenter, ellipseRadiusW, ellipseRadiusH, 
                              ellipseColor, 1);
 
