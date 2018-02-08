@@ -14,9 +14,15 @@
 void fillBrickBackground(SDL_Renderer* renderer,
                          const int brickWidth, const int brickHeight, 
                          const int totalBrickW, const int totalBrickH);
+
 void drawOutlet(SDL_Renderer* renderer, 
                 const int outletX, const int outletY, 
                 const int outletWidth, const int outletHeight);
+
+void drawLamp( SDL_Renderer* renderer,
+               const int positionX, const int positionY, 
+               const int width, const int height,
+               const SDL_Color lightingColor );
 
 const std::string NAME = "alexzas";
 const int WIDTH = 720;
@@ -69,14 +75,11 @@ int main(void) {
               outletWidth, outletHeight );
 
   /* Lighting */ 
-  SDL_Point lightingCenter = {200, 200};
-  SDL_Color lightingColor = {216, 144, 49, 1};
-  int lightingRadiusW = 25;
-  int lightingRadiusH = 25;
-
-  Lighting firstLighting(lightingCenter, lightingRadiusW, lightingRadiusH, 
-                         lightingColor);
-  firstLighting.draw(renderer);
+  SDL_Color lightingColor = {250, 250, 49, 5};
+  int lightingRadiusW = 300;
+  int lightingRadiusH = 300;
+  
+  drawLamp(renderer, 200, 200, lightingRadiusW, lightingRadiusH, lightingColor);
 
   // Dump everything from the renderer to the screen.
   SDL_RenderPresent(renderer);
@@ -211,4 +214,37 @@ void drawOutlet(SDL_Renderer* renderer,
     SDL_RenderDrawRect(renderer, &outlet);
     SDL_RenderFillRect(renderer, &outlet);
   }
+}
+
+void drawLamp( SDL_Renderer* renderer,
+               const int positionX, const int positionY, 
+               const int width, const int height,
+               const SDL_Color lightingColor )
+{
+  
+
+  /* Cord 
+  SDL_Rect cord;
+  
+  cord.x = positionX - width/4;
+  cord.y = 0;
+  cord.w = width/2;
+  cord.h = positionX;
+
+  SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255);
+  SDL_RenderFillRect(renderer, &cord);
+  SDL_RenderDrawRect(renderer, &cord);
+  */
+
+  /* console test */
+  Console rope(15, height, positionX-7, 0);
+  rope.draw(renderer);
+
+
+  /* Lighting */ 
+  SDL_Point lightingCenter = {positionX, positionY};
+
+  Lighting firstLighting(lightingCenter, width, height, lightingColor);
+  firstLighting.draw(renderer);
+
 }

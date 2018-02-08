@@ -16,7 +16,7 @@ Brick::Brick( const int posX, const int posY,
 void Brick::draw(SDL_Renderer* renderer)
 {
     ColorPalette palette;
-    palette.addPalette(41, 4, 99); // Brick Background 
+    palette.addPalette(60, 47, 73); // Brick Background 
     palette.addPalette(0, 0, 0); // Brick spacing/divet 
     palette.addPalette(0, 0, 100); // Brick highlight
     palette.addPalette(0, 0, 20); // Brick shadow/lowlight
