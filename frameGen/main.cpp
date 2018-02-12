@@ -102,6 +102,7 @@ int main(void) {
   frameGen.makeFrame();
 
 
+  int frameCounter = 0;
   // Event/game loop.
   SDL_Event event;
   const Uint8* keystate;
@@ -115,6 +116,15 @@ int main(void) {
                   lightingColor, trimBackground,
                   windowBackground, firstConsole,
                   lampCircles);
+    
+    // Update name
+    std::string fileName = NAME;
+    fileName += std::to_string(++frameCounter);
+
+    // Might want to place the makeFrame() function inside the event loop. Will
+    // allow for multiple pictures to be taken after the first one.
+    frameGen.makeFrame();
+
     keystate = SDL_GetKeyboardState(0);
     if (keystate[SDL_SCANCODE_ESCAPE]) { break; }
     if (SDL_PollEvent(&event)) {
