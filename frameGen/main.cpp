@@ -36,11 +36,17 @@ void animateScene(SDL_Renderer* renderer,
                   const int circles);
 
 const std::string NAME = "alexzas";
-const int WIDTH = 720;
-const int HEIGHT = 1280;
-const int FLOOR_HEIGHT = 20;
+int WIDTH = 720;
+int HEIGHT = 1280;
+int FLOOR_HEIGHT = 20;
 
-int main(void) {
+int main(int argc, char *argv[]) {
+	if(argc == 4){
+		WIDTH = atoi(argv[1]);
+		HEIGHT = atoi(argv[2]);
+		FLOOR_HEIGHT = atoi(argv[3]);
+	}
+
   SDL_Renderer *renderer;
   SDL_Window *window;
   
