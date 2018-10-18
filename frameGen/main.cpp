@@ -9,6 +9,7 @@
 #include "brick.h"
 #include "trim.h"
 #include "window.h"
+#include <unistd.h>
 
 // Function declarations
 void fillBrickBackground(SDL_Renderer* renderer,
@@ -116,6 +117,9 @@ int main(void) {
                   lightingColor, trimBackground,
                   windowBackground, firstConsole,
                   lampCircles);
+
+    // Cap framerate using a wait timer.
+    usleep(1000000);
     
     // Update name
     std::string fileName = NAME;
